@@ -8,6 +8,6 @@ from django.contrib.auth.models import User
 # Deletes all transactions associated with a User when that User gets deleted.
 class Transactions(models.Model):
 	name = models.CharField(max_length=50)
-	total = models.DecimalField(max_digits=None, decimal_places=2)
+	total = models.DecimalField(max_digits=12, decimal_places=2)
 	time = models.DateTimeField(auto_now_add=True)
 	userKey = models.ForeignKey(User, on_delete=models.CASCADE)
