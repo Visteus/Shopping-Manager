@@ -1,14 +1,15 @@
 package com.idk.www.mobileapp;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Intent;
 
 import butterknife.ButterKnife;
 import butterknife.BindView;
@@ -21,11 +22,15 @@ public class MainActivity extends AppCompatActivity {
   //  @BindView(R.id.input_signup) EditText signupinput;
    // @BindView(R.id.input_login) EditText logininput;
 
+    private Button btnsignup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        btnsignup = (Button) findViewById(R.id.signupbtn);
 
         //signupinput.setOnClickListener(new View.OnClickListener(){
            // @Override
@@ -41,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
                // login();
             //}
         //});
+    }
+
+    public void onsignupclick(View v) {
+        Intent signuppage = new Intent(getApplicationContext(), SignupActivity.class);
+        startActivity(signuppage);
     }
 
     /*
