@@ -1,11 +1,17 @@
 {% extends 'base.html' %} 
+{% load staticfiles %}
+
+{% block styles %}
+	<link rel="stylesheet" href="{% static 'login.css' %}"> 
+{% endblock %}
 
 {% block content %}
+
 <form method="POST" class="form-signin text-center">
 	{% csrf_token %}
 	<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-	<label for="inputEmail" class="sr-only">Email address</label>
-	<input type="text" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
+	<label for="inputUsername" class="sr-only">Username</label>
+	<input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
 	<label for="inputPassword" class="sr-only">Password</label>
 	<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
 	<div class="checkbox mb-3">
@@ -13,7 +19,14 @@
 			<input type="checkbox" value="remember-me"> Remember me
 		</label>
 	</div>
-	<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+	<div class="row">
+		<div class="col">
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+		</div>
+		<div class="col">
+			<button class="btn btn-lg btn-success btn-block" type="submit">Sign Up</button>
+		</div>
+	</div>
 	<p class="mt-5 mb-3 text-muted">&copy; Group 2 - Shopping Manager</p>
 </form>
 {% endblock %}
