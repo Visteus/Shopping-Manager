@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorteal">
+    android:inputType="textNoSuggestions"
+    android:background="@drawable/background2">
 
     <Button
         android:id="@+id/button2"
@@ -31,6 +32,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:text="Already registered? Login"
+        android:textColor="@color/colorwhite"
         android:onClick="onsigninclick"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
