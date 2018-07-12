@@ -11,23 +11,29 @@
 	{% csrf_token %}
 	<h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 	<label for="inputUsername" class="sr-only">Username</label>
-	<input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+	<input type="text" id="inputUsername" name="username" class="form-control" placeholder="Username" required autofocus>
 	<label for="inputPassword" class="sr-only">Password</label>
-	<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+	<input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
 	<div class="checkbox mb-3">
 		<label>
 			<input type="checkbox" value="remember-me"> Remember me
 		</label>
 	</div>
+	{% if error_message %}
+		<div class="alert alert-danger" role="alert">{{ error_message }}</div>
+	{% endif %}
+	{% if logout_message %}
+		<div class="alert alert-success" role="alert">{{ logout_message }}</div>
+	{% endif %}
 	<div class="row">
 		<div class="col">
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+			<button class="btn btn-lg btn-outline-primary btn-block" type="submit">Login</button>
 		</div>
 		<div class="col">
-			<button class="btn btn-lg btn-success btn-block" type="submit">Sign Up</button>
+			<a class="btn btn-lg btn-outline-success btn-block" href="{% url 'core:signup_view' %}" role="button">Sign Up</a>
 		</div>
 	</div>
-	<p class="mt-5 mb-3 text-muted">&copy; Group 2 - Shopping Manager</p>
+	<p class="mt-5 mb-3 text-muted">&copy; Group 2 - Budget Buddy</p>
 </form>
 {% endblock %}
 
