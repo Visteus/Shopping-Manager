@@ -8,4 +8,5 @@
     <color name="colordarkblue">#324D5C</color>
     <color name="colorsoftgreen">#88BFB0</color>
     <color name="colorwhite">#ffffff</color>
+    <color name="coloropaquewhite">#66ffffff</color>
 </resources>

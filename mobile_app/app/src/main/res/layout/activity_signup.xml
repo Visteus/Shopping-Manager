@@ -16,6 +16,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:text="Register"
+        android:backgroundTintMode="add"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -126,19 +127,12 @@
 
         <EditText
             android:id="@+id/editText"
-            android:layout_width="256dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
             android:hint="Address"
             android:inputType="textPersonName" />
 
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="112dp"
-            android:layout_height="match_parent"
-            android:ems="10"
-            android:hint="Zip  Code"
-            android:inputType="textPersonName" />
     </TableRow>
 
 </android.support.constraint.ConstraintLayout>
