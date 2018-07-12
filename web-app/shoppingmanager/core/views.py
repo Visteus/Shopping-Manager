@@ -17,17 +17,28 @@ def login_view(request):
 			login(request, user)
 			return HttpResponseRedirect(reverse('core:dashboard_view'))
 		else:
-			return render(
-				request,
-				'login.html',
-				{
-					'error_message': "You are not logged in. Please log in!"
-				}
-			)
+			return render(request, 'login.html', {'error_message': "Username or password incorrect"})
 	return render(request, 'login.html')
 
+def signup_view(request):
+	if request.method == 'POST':
+		username = request.POST['username']
+		password = request.POST['password']
+		email = request.POST['email']
+		first_name = request.POST['firstname']
+		last_name = request.POST['lastname']
+		user = User.objects.create_user(
+			username=username,
+			password=password,
+			email=email,
+			first_name=first_name,
+			last_name=last_name
+		)
+		user.save()
+		return HttpResponseRedirect(reverse('core:login_view'))
+	return render(request, 'signup.html')
 
-@login_required(login_url='')
+@login_required(login_url='/')
 def dashboard_view(request):
 	user_id = request.user.id
 	transactions_list = Transaction.objects.filter(user_id=user_id)
@@ -39,9 +50,8 @@ def dashboard_view(request):
 			'user': request.user
 		}
 	)
-
-
-@login_required(login_url='')
+	
+@login_required(login_url='/')
 def logout_view(request):
 	logout(request)
-	return render(request, 'logout.html')
+	return render(request, 'login.html', {'logout_message': "You have been logged out!"})
