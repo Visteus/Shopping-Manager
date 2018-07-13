@@ -1,16 +1,20 @@
 //Shopping manager iOS App
 //Imports
 import React, { Component } from 'react';
-import { Alert, AppRegistry, Button, Image, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
+import { Alert, AppRegistry, Button, FlatList, Image, NavigatorIOS, PropTypes, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
 
 export default class App extends Component 
 {
   render() 
   {
     return (
-      <View style={styles.container}>
-        <LoginPage />
-      </View>
+      <NavigatorIOS
+        initialRoute={{
+          component: LoginPage,
+          title: 'Budget Buddy',
+        }}
+        style={{flex: 1}}
+      />
     );
   }
 }
@@ -26,8 +30,7 @@ class LoginPage extends Component
   render()
   {
     return (
-      <View>
-        <Text style={styles.header}>Budget Manager</Text>
+      <View style = {styles.container}>
         //Here he his 
         <Image 
           source = {require('./rl.jpg')}
@@ -36,20 +39,20 @@ class LoginPage extends Component
         //Text boxes
         <BlankLine />
         <TextInput 
-          style={styles.textbox}
-          value={this.state.username}
+          style = {styles.textbox}
+          value = {this.state.username}
           placeholder = "Username"
-          onChangeText={username => this.setState({username})}
+          onChangeText = {username => this.setState({username})}
           returnKeyType = "next"
           onSubmitEditing = { () => this.passwordInput.focus()}
         />
         <BlankLine />
         <TextInput 
-          style={styles.textbox}
-          value={this.state.password}
+          style = {styles.textbox}
+          value = {this.state.password}
           placeholder = "Password"
           secureTextEntry = {true}
-          onChangeText={password => this.setState({password})}
+          onChangeText = {password => this.setState({password})}
           ref = {(input) => this.passwordInput = input}
         />
         <BlankLine />
@@ -77,7 +80,12 @@ class LoginPage extends Component
   handleLogin = () => {
     const user = this.state.username;
     const pass = this.state.password;
-    Alert.alert("Login", user + " " + pass);
+    //Alert.alert("Login", user + " " + pass);
+    this.props.navigator.push({
+      title: 'Budget Mananger',
+      component: MainPage,
+      //leftButtonTitle: 'Back'
+    });
   }
   
   handleSignUp = () => {
@@ -86,6 +94,79 @@ class LoginPage extends Component
     Alert.alert("Sign up", user + " " + pass);
   }
   
+}
+
+class MainPage extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      txt: [],
+      index: 1,
+      name: '',
+      qty: 0,
+      price: 0,
+      total: 0
+    }
+  }
+  
+  //Turn the user input into one string
+  makeText(){
+    let subtotal = this.state.qty * this.state.price;
+    let newTotal = subtotal + this.state.total;
+    let finalText = this.state.index + ") " + this.state.name + " $" + this.state.price + " x " + this.state.qty + " = $" + subtotal + "\n";
+    
+	this.state.txt.push(
+      finalText
+      )
+      
+    this.setState({
+        index: this.state.index + 1,
+        text: this.state.text,
+        total: newTotal
+      })
+  }
+  
+  render(){
+    return(
+      <View style = {styles.container}>
+        <Text>{"\n"}</Text>
+       
+        //Text boxes
+        <TextInput 
+          style = {styles.textbox}
+          value = {this.state.name}
+          placeholder = "Item Name"
+          onChangeText = {name => this.setState({name})}
+        />
+        <TextInput 
+          style = {styles.textbox}
+          keyboardType = 'numeric'
+          value = {this.state.qty}
+          placeholder = "Quantity"
+          onChangeText = {qty => this.setState({qty})}
+        />
+        <TextInput 
+          style = {styles.textbox}
+          keyboardType = 'numeric'
+          value = {this.state.price}
+          placeholder = "Price"
+          onChangeText = {price => this.setState({price})}
+        />
+       
+	      //Buttons
+        <Button title = "Add" onPress = {() => this.makeText()} />
+       
+        <Text>{"Total: $" + this.state.total}</Text>
+
+	      //Display as a list
+        <FlatList
+          data = {this.state.txt}
+          extraData = {this.state.total}
+          renderItem = {( {item, index} ) => <Text>{this.state.txt[index]}</Text>}
+        />
+      </View>
+    )
+  }
 }
 
 //Easy way to create some spacing
@@ -102,10 +183,7 @@ const styles = StyleSheet.create(
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  header:
-  {
-    fontSize: 35
+    paddingTop: 50
   },
   mainImg:
   {
@@ -129,6 +207,8 @@ const styles = StyleSheet.create(
     marginRight: 30,
     paddingTop: 10,
     paddingBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
     backgroundColor:'black',
     borderRadius: 10,
     borderWidth: 1,
