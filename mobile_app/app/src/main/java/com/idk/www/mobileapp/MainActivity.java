@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent;
@@ -17,11 +18,7 @@ import butterknife.BindView;
 
 public class MainActivity extends AppCompatActivity {
 
-   // @BindView(R.id.input_name) EditText nameinput;
-   // @BindView(R.id.input_psw) EditText pswinput;
-  //  @BindView(R.id.input_signup) EditText signupinput;
-   // @BindView(R.id.input_login) EditText logininput;
-
+    private Button btnsignin;
     private Button btnsignup;
     private Button btnguest;
 
@@ -29,12 +26,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+        //ButterKnife.bind(this);
 
+        final EditText textsignin = (EditText) findViewById(R.id.loginname);
+        final EditText pswsignin = (EditText) findViewById(R.id.loginpsw);
+        final Switch offlinemode = (Switch) findViewById(R.id.offlineswitch);
+        btnsignin = (Button) findViewById(R.id.signinbtn);
         btnsignup = (Button) findViewById(R.id.signupbtn);
         btnguest = (Button) findViewById(R.id.guestbtn);
-        TextView textsignin =(TextView) findViewById(R.id.textView3);
-
     }
 
     public void onsignupclick(View v) {

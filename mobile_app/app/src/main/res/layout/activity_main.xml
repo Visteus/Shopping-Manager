@@ -53,14 +53,15 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:background="@color/coloropaquewhite"
+        android:background="@color/colorveryopaquewhite"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/loginname"
+            style="@style/Widget.AppCompat.EditText"
             android:layout_width="310dp"
             android:layout_height="53dp"
             android:layout_marginEnd="8dp"
@@ -78,9 +79,9 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/loginpsw"
             android:layout_width="310dp"
-            android:layout_height="49dp"
+            android:layout_height="53dp"
             android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
@@ -92,9 +93,8 @@
             android:textColor="@color/colorwhite"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.454"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText3" />
+            app:layout_constraintTop_toBottomOf="@+id/loginname" />
 
         <Button
             android:id="@+id/signinbtn"
@@ -109,7 +109,7 @@
             android:textColor="@color/colorwhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText4"
+            app:layout_constraintTop_toBottomOf="@+id/loginpsw"
             app:layout_constraintVertical_bias="0.125" />
 
         <Button
@@ -130,7 +130,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guestbtn"
             app:layout_constraintHorizontal_bias="0.48"
             app:layout_constraintStart_toEndOf="@+id/signinbtn"
-            app:layout_constraintTop_toBottomOf="@+id/editText4"
+            app:layout_constraintTop_toBottomOf="@+id/loginpsw"
             app:layout_constraintVertical_bias="0.125" />
 
         <Button
@@ -141,17 +141,17 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
-            android:background="@color/coloropaqueblue"
+            android:background="@color/colordarkblue"
             android:onClick="onguestpageclick"
             android:text="@string/guest"
             android:textColor="@color/colorwhite"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText4"
+            app:layout_constraintTop_toBottomOf="@+id/loginpsw"
             app:layout_constraintVertical_bias="0.125" />
 
         <Switch
-            android:id="@+id/switch1"
+            android:id="@+id/offlineswitch"
             android:layout_width="91dp"
             android:layout_height="35dp"
             android:layout_marginBottom="8dp"
@@ -167,7 +167,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText4"
+            app:layout_constraintTop_toBottomOf="@+id/loginpsw"
             app:layout_constraintVertical_bias="0.834" />
     </android.support.constraint.ConstraintLayout>
 

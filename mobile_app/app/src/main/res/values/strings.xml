@@ -11,6 +11,7 @@
     <string name="address">Address</string>
     <string name="aboutpage">About the App</string>
     <string name="back">Go Back</string>
+    <string name="register">Register</string>
     <string name="title_activity_guest">Guest</string>
 
 </resources>
