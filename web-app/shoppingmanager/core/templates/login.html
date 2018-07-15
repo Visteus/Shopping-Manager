@@ -25,6 +25,9 @@
 	{% if logout_message %}
 		<div class="alert alert-success" role="alert">{{ logout_message }}</div>
 	{% endif %}
+	{% if signup_successful_message %}
+		<div class="alert alert-success" role="alert">{{ signup_successful_message }}</div>
+	{% endif %}
 	<div class="row">
 		<div class="col">
 			<button class="btn btn-lg btn-outline-primary btn-block" type="submit">Login</button>
