@@ -86,5 +86,5 @@ def dashboard_view(request):
 @login_required(login_url='/')
 def logout_view(request):
 	logout(request)
-	return render(request, 'login.html', {'logout_message': "You have been logged out!"})
+	return HttpResponseRedirect(reverse('core:login_view'))
 	
