@@ -1,10 +1,12 @@
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.template import loader
-from django.shortcuts import render, get_object_or_404, render_to_response
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.contrib import messages
+
 from django.contrib.auth.models import User
 from .models import Transaction
 from django.db.models import Q
@@ -38,7 +40,8 @@ def signup_view(request):
 			last_name=last_name
 		)
 		user.save()
-		return render(request, 'login.html', {'signup_successful_message': "You've created a new account successfully!"})
+		messages.success(request, 'You have been created a new account successfully!')
+		return HttpResponseRedirect(reverse('core:login_view'))
 	return render(request, 'signup.html')
 
 
@@ -86,5 +89,6 @@ def dashboard_view(request):
 @login_required(login_url='/')
 def logout_view(request):
 	logout(request)
+	messages.success(request, 'You have been logged out!')
 	return HttpResponseRedirect(reverse('core:login_view'))
 	

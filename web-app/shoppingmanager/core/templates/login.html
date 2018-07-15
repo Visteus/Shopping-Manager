@@ -22,12 +22,13 @@
 	{% if error_message %}
 		<div class="alert alert-danger" role="alert">{{ error_message }}</div>
 	{% endif %}
-	{% if logout_message %}
-		<div class="alert alert-success" role="alert">{{ logout_message }}</div>
+
+	{% if messages %} 
+		{% for message in messages %}
+			<div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+		{% endfor %} 
 	{% endif %}
-	{% if signup_successful_message %}
-		<div class="alert alert-success" role="alert">{{ signup_successful_message }}</div>
-	{% endif %}
+
 	<div class="row">
 		<div class="col">
 			<button class="btn btn-lg btn-outline-primary btn-block" type="submit">Login</button>
