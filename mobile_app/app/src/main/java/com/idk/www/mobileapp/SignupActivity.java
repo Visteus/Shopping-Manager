@@ -50,7 +50,7 @@ public class SignupActivity extends AppCompatActivity {
                             }
                             else {
                                 AlertDialog.Builder message = new AlertDialog.Builder(SignupActivity.this);
-                                message.setMessage("Failed.").setNegativeButton("Please Retry!", null).create().show();
+                                message.setMessage("Fail to Register.").setNegativeButton("Please Retry!", null).create().show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
