@@ -10,6 +10,8 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from .models import Transaction
 from django.db.models import Q
+from datetime import timedelta, date
+import datetime
 
 
 def login_view(request):
@@ -48,7 +50,36 @@ def signup_view(request):
 @login_required(login_url='/')
 def dashboard_view(request):
 	user_id = request.user.id
-	transaction_list = Transaction.objects.filter(user_id=user_id)
+
+	global time_frame
+	time_frame = request.GET.get('dropdownMenu')
+		
+	# Set the time frames
+	if time_frame == 'Last week':
+		start_date = date.today()
+		end_date = start_date - timedelta(days=6)
+	elif time_frame == 'Last month':
+		start_date = date.today()
+		end_date = start_date - timedelta(days=30)
+	elif time_frame == 'Last year':
+		start_date = date.today()
+		end_date = start_date - timedelta(days=90)
+	else:
+		start_date = date.today()
+		end_date = start_date - timedelta(days=6)
+		# start_date = datetime.date(time_frame, 12, 31)
+		# end_date = datetime.date(time_frame, 1, 1)
+
+	print (start_date)
+	print (end_date)
+
+	transaction_list = Transaction.objects.filter(
+			user_id = user_id,
+			created_at__gte=datetime.date(end_date.year, end_date.month, end_date.day),
+			created_at__lte=datetime.date(start_date.year, start_date.month, start_date.day)    		
+		)
+
+	# transaction_list = Transaction.objects.filter(user_id=user_id)
 	page = request.GET.get('page', 1)
 	paginator = Paginator(transaction_list, 2)
 	try:
