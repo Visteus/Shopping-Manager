@@ -88,8 +88,8 @@ class ChartData(APIView):
 		labels = ["General", "Fun", "Gas", "Groceries","something?"]
 		default_items= [5.55, 4, 35.00, 57.82, 6.99]
 		data = {
-			"labels": db.title,
-			"totals": db.total,
+			"labels": data.title,
+			"totals": data.total,
 		}
 		
 		return Response(data)
