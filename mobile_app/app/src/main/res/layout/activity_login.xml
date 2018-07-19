@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background"
+    android:maxWidth="500dp"
+    android:inputType="textNoSuggestions"
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:id="@+id/aboutxtlink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="onaboutpageclick"
+        android:text="@string/aboutpage"
+        android:textColor="@color/colorwhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.56"
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_alignParentRight="true" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/RelativeLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.545"
+        app:srcCompat="@drawable/app_title" />
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:text="Group 2 COP4331 2018"
+        android:textColor="@color/colorwhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.178"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_alignParentLeft="true" />
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="352dp"
+        android:layout_above="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/colorveryopaquewhite"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <EditText
+            android:id="@+id/loginname"
+            style="@style/Widget.AppCompat.EditText"
+            android:layout_width="340dp"
+            android:layout_height="53dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:ems="10"
+            android:hint="@string/username"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorwhite"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/loginpsw"
+            android:layout_width="340dp"
+            android:layout_height="53dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="120dp"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textColor="@color/colorwhite"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginname" />
+
+        <Button
+            android:id="@+id/signinbtn"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/loginname"
+            android:layout_alignStart="@+id/loginname"
+            android:layout_alignTop="@+id/signupbtn"
+            android:background="@color/colororange"
+            android:text="@string/sign_in"
+            android:textColor="@color/colorwhite" />
+
+        <Button
+            android:id="@+id/signupbtn"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/guestbtn"
+            android:layout_toLeftOf="@+id/guestbtn"
+            android:layout_toStartOf="@+id/guestbtn"
+            android:background="@color/colororange"
+            android:onClick="onsignupclick"
+            android:text="@string/sign_up"
+            android:textColor="@color/colorwhite" />
+
+        <Button
+            android:id="@+id/guestbtn"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+
+            android:layout_alignEnd="@+id/loginname"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="85dp"
+            android:background="@color/colordarkblue"
+            android:onClick="onguestpageclick"
+            android:text="@string/guest"
+            android:textColor="@color/colorwhite" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

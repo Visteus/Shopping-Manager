@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -46,9 +45,9 @@ public class SignupActivity extends AppCompatActivity {
                             boolean success = jresponse.getBoolean("Success!");
 
                             if(success){
-                                Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
                             }
-                            else {
+                            else { //ADD TOAST POP UP MESSAGE (USER ALREADY EXIST OR USERNAME IS INVALID)
                                 AlertDialog.Builder message = new AlertDialog.Builder(SignupActivity.this);
                                 message.setMessage("Fail to Register.").setNegativeButton("Please Retry!", null).create().show();
                             }
@@ -70,7 +69,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onsigninclick(View v){
-        Intent signinpage = new Intent(getApplicationContext(), MainActivity.class);
+        Intent signinpage = new Intent(getApplicationContext(), LoginActivity.class);
         finish();
         startActivity(signinpage);
     }

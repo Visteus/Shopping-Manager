@@ -1,17 +1,11 @@
 package com.idk.www.mobileapp;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Switch;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.content.Intent;
 
 import com.android.volley.RequestQueue;
@@ -21,10 +15,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import butterknife.ButterKnife;
-import butterknife.BindView;
-
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private Button btnsignin;
     private Button btnsignup;
@@ -33,12 +24,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         //ButterKnife.bind(this);
 
         final EditText textsignin = (EditText) findViewById(R.id.loginname);
         final EditText pswsignin = (EditText) findViewById(R.id.loginpsw);
-        final Switch offlinemode = (Switch) findViewById(R.id.offlineswitch);
         btnsignin = (Button) findViewById(R.id.signinbtn);
         btnsignup = (Button) findViewById(R.id.signupbtn);
         btnguest = (Button) findViewById(R.id.guestbtn);
@@ -57,12 +47,12 @@ public class MainActivity extends AppCompatActivity {
                             JSONObject jsonlogin = new JSONObject(response);
                             boolean success = jsonlogin.getBoolean("success!");
 
-                            if(success){
-                                Intent intent = new Intent(MainActivity.this, activity_user.class);
+                            if(success){// user page with their username
+                                Intent intent = new Intent(LoginActivity.this, Activity_User.class);
                                 intent.putExtra("username", username);
                             }
                             else {
-                                AlertDialog.Builder message = new AlertDialog.Builder(MainActivity.this);
+                                AlertDialog.Builder message = new AlertDialog.Builder(LoginActivity.this);
                                 message.setMessage("Login Failed.").setNegativeButton("Please Retry!", null).create().show();
                             }
                         } catch (JSONException e) {
@@ -72,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 };
 
                 LoginRequest Login = new LoginRequest(username, password, listener);
-                RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+                RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                 queue.add(Login);
             }
 
@@ -84,13 +74,13 @@ public class MainActivity extends AppCompatActivity {
         finish();
         startActivity(signuppage);
     }
-    public void onguestpageclick(View v) {
-        Intent guestpage = new Intent(getApplicationContext(), Guest.class);
+    public void onguestpageclick(View v) { //default offline mode
+        Intent guestpage = new Intent(getApplicationContext(), Activity_Guest.class);
         finish();
         startActivity(guestpage);
     }
     public void onaboutpageclick(View v){
-        Intent aboutpage = new Intent(getApplicationContext(), AboutPage.class);
+        Intent aboutpage = new Intent(getApplicationContext(), Activity_About.class);
         finish();
         startActivity(aboutpage);
     }

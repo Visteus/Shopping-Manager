@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.view.View;
 import android.content.Intent;
 
-public class AboutPage extends AppCompatActivity {
+public class Activity_About extends AppCompatActivity {
     private Button bakbtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,7 +15,7 @@ public class AboutPage extends AppCompatActivity {
         bakbtn =(Button) findViewById(R.id.bakbtn1);
     }
     public void onbackclick(View v){
-        Intent bakhomepage = new Intent(getApplicationContext(), MainActivity.class);
+        Intent bakhomepage = new Intent(getApplicationContext(), LoginActivity.class);
         finish();
         startActivity(bakhomepage);
     }

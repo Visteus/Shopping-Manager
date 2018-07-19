@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class Guest extends AppCompatActivity {
+public class Activity_Guest extends AppCompatActivity {
 
     private Button bakbtn;
 
@@ -20,7 +20,7 @@ public class Guest extends AppCompatActivity {
     }
 
     public void onbackclick(View v){
-        Intent bakhomepage = new Intent(getApplicationContext(), MainActivity.class);
+        Intent bakhomepage = new Intent(getApplicationContext(), LoginActivity.class);
         finish();
         startActivity(bakhomepage);
     }

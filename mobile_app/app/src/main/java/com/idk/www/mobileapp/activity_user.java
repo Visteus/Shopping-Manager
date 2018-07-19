@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class activity_user extends AppCompatActivity {
+public class Activity_User extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
