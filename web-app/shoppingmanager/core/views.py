@@ -42,7 +42,7 @@ def signup_view(request):
 			last_name=last_name
 		)
 		user.save()
-		messages.success(request, 'You have been created a new account successfully!')
+		messages.success(request, 'You have successfully created a new account. Start Shopping!!!')
 		return HttpResponseRedirect(reverse('core:login_view'))
 	return render(request, 'signup.html')
 
@@ -70,18 +70,22 @@ def dashboard_view(request):
 		# start_date = datetime.date(time_frame, 12, 31)
 		# end_date = datetime.date(time_frame, 1, 1)
 
+	# For dubuging 
 	print (start_date)
 	print (end_date)
 
-	transaction_list = Transaction.objects.filter(
+	# Query transactions
+	transactions_list = Transaction.objects.filter(
 			user_id = user_id,
-			created_at__gte=datetime.date(end_date.year, end_date.month, end_date.day),
-			created_at__lte=datetime.date(start_date.year, start_date.month, start_date.day)    		
+			created_at__gte=datetime.datetime(end_date.year, end_date.month, end_date.day, 0, 0, 0),
+			created_at__lte=datetime.datetime(start_date.year, start_date.month, start_date.day, 23, 59, 59)    		
 		)
 
-	# transaction_list = Transaction.objects.filter(user_id=user_id)
+	# Reverse list to show newer transactions first
+	transaction_list = list(reversed(transactions_list))
+
 	page = request.GET.get('page', 1)
-	paginator = Paginator(transaction_list, 2)
+	paginator = Paginator(transaction_list, 10)
 	try:
 		transactions = paginator.page(page)
 	except PageNotAnInteger:

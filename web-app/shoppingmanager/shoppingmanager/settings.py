@@ -25,7 +25,7 @@ SECRET_KEY = 'mvi*4&6tfk40dw_d#%q_dkvg&0rn_vn-@@5p@#e$ua(li!3)dn'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['shoppingmanager.us-east-2.elasticbeanstalk.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
