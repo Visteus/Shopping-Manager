@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,15 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+   	'rest_framework',
 	'core',
-	'rest_framework'
 ]
-
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -128,3 +123,24 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+      	# 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
+JWT_AUTH = {
+	'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=5000),
+}
+
+# curl -X POST -d "username=admin&password=tuan#8613" http://127.0.0.1:8000/api-token-auth/
+# eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNTMxOTc0MjE2LCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.Lp1_O-YiYlHrXY2qT-xn2LeR_wlFEad0wwlUBL2F4Uo
+# curl -H "Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNTMxOTc0MjE2LCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.Lp1_O-YiYlHrXY2qT-xn2LeR_wlFEad0wwlUBL2F4Uo" http://127.0.0.1:8000/api/transactions/
+# curl -X POST -d "user=1&title=pants&total=12" -H "Authorization: JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNTMxOTc0MjE2LCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIn0.Lp1_O-YiYlHrXY2qT-xn2LeR_wlFEad0wwlUBL2F4Uo" http://127.0.0.1:8000/api/transactions/

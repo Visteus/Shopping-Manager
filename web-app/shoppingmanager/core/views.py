@@ -1,3 +1,4 @@
+# Django Utilities
 from django.http import HttpResponseRedirect
 from django.template import loader
 from django.shortcuts import render, get_object_or_404, redirect
@@ -7,9 +8,25 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib import messages
 
+# REST
+from rest_framework import viewsets
+from rest_framework.generics import (
+	CreateAPIView,
+	ListAPIView,
+	UpdateAPIView,
+	RetrieveAPIView,
+	RetrieveUpdateAPIView
+)
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly
+
+# Model
 from django.contrib.auth.models import User
 from .models import Transaction
 from django.db.models import Q
+from .serializers import TransactionSerializer, UserSerializer, UserLoginSerializer
 
 
 def login_view(request):
@@ -92,3 +109,25 @@ def logout_view(request):
 	messages.success(request, 'You have been logged out!')
 	return HttpResponseRedirect(reverse('core:login_view'))
 	
+# RESTful API
+class TransactionView(viewsets.ModelViewSet):
+	permission_classes = [IsAuthenticated]
+	queryset = Transaction.objects.all()
+	serializer_class = TransactionSerializer
+
+class UserView(viewsets.ModelViewSet):
+	permission_classes = [IsAuthenticated]
+	queryset = User.objects.all()
+	serializer_class = UserSerializer
+
+class UserLoginAPIView(APIView):
+	permission_classes = [AllowAny]
+	serializer_class = UserLoginSerializer
+	
+	def post(self, request, *args, **kwargs):
+		data = request.data
+		serializer = UserLoginSerializer(data=data)
+		if serializer.is_valid(raise_exception=True):
+			new_data = serializer.data
+			return Response(new_data, status=HTTP_200_OK)
+		return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
