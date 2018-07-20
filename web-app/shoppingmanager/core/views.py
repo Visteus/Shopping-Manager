@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib import messages
+from datetime import timedelta, date, datetime
 
 # REST
 from rest_framework import viewsets
@@ -36,7 +37,7 @@ def login_view(request):
 		user = authenticate(request, username=username, password=password)
 		if user is not None:
 			login(request, user)
-			return HttpResponseRedirect(reverse('core:dashboard_view'))
+			return HttpResponseRedirect(reverse('core:dashboard_view', kwargs={'slug': 'last-week'}))
 		else:
 			return render(request, 'login.html', {'error_message': "Username or password incorrect"})
 	return render(request, 'login.html')
@@ -63,9 +64,30 @@ def signup_view(request):
 
 
 @login_required(login_url='/')
-def dashboard_view(request):
+def dashboard_view(request, slug):
 	user_id = request.user.id
-	transaction_list = Transaction.objects.filter(user_id=user_id)
+	# time_frame = 'last-week'
+	time_frame = slug
+	# Set the time frames
+	if time_frame == 'last-month':
+		start_date = date.today()
+		end_date = start_date - timedelta(days=30)
+		time_frame = 'Last Month'
+	elif time_frame == 'last-year':
+		start_date = date.today()
+		end_date = start_date - timedelta(days=365)
+		time_frame = 'Last Year'
+	else:
+		start_date = date.today()
+		end_date = start_date - timedelta(days=6)
+		time_frame = 'Last Week'
+
+	transaction_list = Transaction.objects.filter(
+		user_id=user_id,
+		created_at__gte=datetime(end_date.year, end_date.month, end_date.day, 0, 0, 0),
+    	created_at__lte=datetime(start_date.year, start_date.month, start_date.day, 23, 59, 59)
+	)
+	transaction_list = list(reversed(transaction_list))
 	page = request.GET.get('page', 1)
 	paginator = Paginator(transaction_list, 2)
 	try:
@@ -84,7 +106,8 @@ def dashboard_view(request):
 		{
 			'transactions': transactions,
 			'user': request.user,
-			'total': total
+			'total': total,
+			'time_frame': time_frame
 		}
 	)
 
