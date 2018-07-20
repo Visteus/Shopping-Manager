@@ -85,14 +85,33 @@ class ChartData(APIView):
 	permission_classes = ()
 	
 	def get(self, request, format=None):
-		labels = ["General", "Fun", "Gas", "Groceries","something?"]
-		default_items= [5.55, 4, 35.00, 57.82, 6.99]
+		transaction_list = Transaction.objects.all()#filter(user = request.user.id)
+		total_list = []
+		name_list = []
+		date_list = []
+		total = 0
+		for transaction in transaction_list:
+		    total_list.append(transaction.total)
+		    name_list.append(transaction.title)
+		    date_list.append(transaction.created_at.strftime("%B %d, %Y, %I:%M %p"))
+
 		data = {
-			"labels": data.title,
-			"totals": data.total,
+			"labels": name_list,
+			"totals": total_list,
+			"dates": date_list,
 		}
 		
 		return Response(data)
+
+#def get(self, request, format=None):
+#		labels = ["General", "Fun", "Gas", "Groceries","something?"]
+#		default_items= [5.55, 4, 35.00, 57.82, 6.99]
+#		data = {
+#			"labels": labels,
+#			"totals": default_items,
+#		}
+#		
+#		return Response(data)
 
 
 	
