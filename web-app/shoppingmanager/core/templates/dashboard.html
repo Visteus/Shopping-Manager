@@ -70,39 +70,53 @@
 					</div>
 
 					{% if transactions.has_other_pages %}
-					<ul class="pagination">
-						{% if transactions.has_previous %}
-							<li>
-								<a href="?page={{ transactions.previous_page_number }}">&laquo;</a>
-							</li>
-						{% else %}
-							<li class="disabled">
-								<span>&laquo;</span>
-							</li>
-						{% endif %} 
-						{% for i in transactions.paginator.page_range %} 
-							{% if transactions.number == i %}
-								<li class="active">
-									<span>{{ i }}
-										<span class="sr-only">(current)</span>
-									</span>
+					<nav aria-label="sort timeframe">
+						<ul class="pagination pagination-sm justify-content-center">
+							{% if transactions.has_previous %}
+								<li class="page-item">
+									<a class="page-link" aria-label="Previous" href="?page={{ transactions.previous_page_number }}">
+										<span aria-hidden="true">&laquo;</span>
+										<span class="sr-only">Previous</span>
+									</a>
 								</li>
 							{% else %}
-								<li>
-									<a href="?page={{ i }}">{{ i }}</a>
+								<li class="page-item disabled">
+									<a class="page-link" aria-label="Previous" href="#">
+										<span aria-hidden="true">&laquo;</span>
+										<span class="sr-only">Previous</span>
+									</a>
 								</li>
 							{% endif %} 
-						{% endfor %} 
-						{% if transactions.has_next %}
-							<li>
-								<a href="?page={{ transactions.next_page_number }}">&raquo;</a>
-							</li>
-						{% else %}
-						<li class="disabled">
-							<span>&raquo;</span>
-						</li>
-						{% endif %}
-					</ul>
+							{% for i in transactions.paginator.page_range %} 
+								{% if transactions.number == i %}
+									<li class="page-item active">
+											<a class="page-link" href="?page={{ i }}">{{ i }}
+												<span class="sr-only">(current)</span>
+											</a>
+									</li>
+								{% else %}
+									<li class="page-item">
+										<a class="page-link" href="?page={{ i }}">{{ i }}</a>
+									</li>
+								{% endif %} 
+							{% endfor %} 
+							{% if transactions.has_next %}
+								<li class="page-item">
+									<a class ="page-link" aria-label="Next" href="?page={{ transactions.next_page_number }}">
+										<span aria-hidden="true">&raquo;</span>
+										<span class="sr-only">Next</span>
+									</a>
+								</li>
+							{% else %}
+								<li class="page-item disabled">
+									<a class="page-link" aria-label="Next" href="#">
+										<span aria-hidden="true">&raquo;</span>
+										<span class="sr-only">Next</span>
+									</a>
+								</li>
+							{% endif %}
+						</ul>
+					</nav>
 					{% endif %}
 				</div>
 				<div class="">
@@ -116,16 +130,6 @@
 		</main>
 	</div>
 </div>
-<!-- Bootstrap core JavaScript
-	================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
- crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="../../assets/js/vendor/popper.min.js"></script>
-<script src="../../dist/js/bootstrap.min.js"></script>
-
-<!-- Icons -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 <script>
 	feather.replace()
