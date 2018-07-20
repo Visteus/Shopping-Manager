@@ -26,18 +26,46 @@
 						<button class="btn btn-sm btn-outline-secondary">Share</button>
 						<button class="btn btn-sm btn-outline-secondary">Export</button>
 					</div> -->
-					<div class="btn-group dropleft">
+					<!-- <div class="btn-group dropleft">
 						<button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false">
+						aria-expanded="false"
+						onclick="buttonFunction()">
 							<span data-feather="calendar"></span>
-							This week
+							Last week
 						</button>
 						<div class="dropdown-menu" aria-labelledby="dropdownMenu">
-							<a class="dropdown-item" href="#">Last week</a>
-							<a class="dropdown-item" href="#">Last month</a>
-							<a class="dropdown-item" href="#">Last year</a>
+							<a class="dropdown-item" href="{% url 'core:dashboard_view' %}" value="week">Last week</a>
+							<a class="dropdown-item" href="{% url 'core:dashboard_view' %}" value="month">Last month</a>
+							<a class="dropdown-item" href="{% url 'core:dashboard_view' %}" value="year">Last year</a>
 						</div>
-					</div>
+					</div> -->					
+					<div class="dropdown dropleft">
+					    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+						Last Week
+					    </button>
+					    <div class="dropdown-menu">
+							<a class="dropdown-item" href="{% url 'core:dashboard_view' %}" id="item1" value="week" 
+								onclick="Week()">Last week</a>
+							<a class="dropdown-item" href="{% url 'core:dashboard_view' %}" id="item2" value="month" 
+								onclick="Month()">Last month</a>
+							<a class="dropdown-item" href="{% url 'core:dashboard_view' %}" id="item3" value="year" 
+								onclick="Year()">Last year</a>
+					    </div>
+					</div>					
+					<script>
+						function Week() {
+						    var x = document.getElementById("item1").innerHTML;
+						    alert("You clicked on: " + x);
+						}
+						function Month() {
+						    var x = document.getElementById("item2").innerHTML;
+						    alert("You clicked on: " + x);
+						}
+						function Year() {
+						    var x = document.getElementById("item3").innerHTML;
+						    alert("You clicked on: " + x);
+						}
+					</script>
 				</div>
 				
 			</div>

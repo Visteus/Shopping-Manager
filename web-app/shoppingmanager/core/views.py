@@ -52,7 +52,9 @@ def dashboard_view(request):
 	user_id = request.user.id
 
 	global time_frame
-	time_frame = request.GET.get('dropdownMenu')
+	
+	time_frame = request.GET.get('dropdown')
+	print (time_frame)
 		
 	# Set the time frames
 	if time_frame == 'Last week':
@@ -63,7 +65,7 @@ def dashboard_view(request):
 		end_date = start_date - timedelta(days=30)
 	elif time_frame == 'Last year':
 		start_date = date.today()
-		end_date = start_date - timedelta(days=90)
+		end_date = start_date - timedelta(days=365)
 	else:
 		start_date = date.today()
 		end_date = start_date - timedelta(days=6)
@@ -96,6 +98,7 @@ def dashboard_view(request):
 	total = 0
 	for transaction in transaction_list:
 		total += transaction.total
+
 	return render(
 		request,
 		'dashboard.html',
