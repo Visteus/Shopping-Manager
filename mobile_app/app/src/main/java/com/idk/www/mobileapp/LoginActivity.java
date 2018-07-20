@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.content.Intent;
+import android.widget.RelativeLayout;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -15,17 +16,22 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Random;
+
 public class LoginActivity extends AppCompatActivity {
 
     private Button btnsignin;
     private Button btnsignup;
     private Button btnguest;
-
+    RelativeLayout currentbakgrd;
+    int bakgrdroulette[];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        //ButterKnife.bind(this);
+
+        currentbakgrd = (RelativeLayout) findViewById(R.id.relativelayout1);
+        bakgrdroulette = new int[]{R.drawable.background, R.drawable.background2, R.drawable.background3, R.drawable.background4, R.drawable.background5, R.drawable.background6};
 
         final EditText textsignin = (EditText) findViewById(R.id.loginname);
         final EditText pswsignin = (EditText) findViewById(R.id.loginpsw);
@@ -85,9 +91,15 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(aboutpage);
     }
 
+    //background image roulette
+    protected void onResume() {
+        if(currentbakgrd!=null)
+            currentbakgrd.setBackgroundResource(bakgrdroulette[randomimg()]);
+        super.onResume();
+    }
 
-
-
-
+    private int randomimg(){
+        return new Random().nextInt(6);
+    }
 
 }
