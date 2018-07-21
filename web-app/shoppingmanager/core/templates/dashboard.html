@@ -5,74 +5,135 @@
 <link rel="stylesheet" href="{% static 'dashboard.css' %}"> 
 {% endblock %}
 
+
+{% block jquery %}
+<script>
+<!-- Graphs -->
+var endpoint = '/api/chart/data/'
+var defaultData = []
+var labels = []
+
+var poolColors = function (num, opacity) {
+    var pool = [];
+    for(i=0;i<num;i++){
+        pool.push(dynamicColors(opacity));
+    }
+    return pool;
+}
+
+var dynamicColors = function(opacity) {
+    var r = Math.floor(Math.random() * 255);
+    var g = Math.floor(Math.random() * 255);
+    var b = Math.floor(Math.random() * 255);
+    return "rgb(" + r + "," + g + "," + b + "," + opacity + ")";
+}
+
+$.ajax({
+	method: "GET",
+	url: endpoint,
+	success: function(data){
+		labels = data.dates
+		defaultData = data.totals
+		dates = data.dates
+		total = data.totals.length
+		var ctx = document.getElementById('myChart').getContext('2d');
+		var myChart = new Chart(ctx, {
+		    type: 'bar',
+		    data: {
+		        labels: labels,
+		        datasets: [{
+		            label: 'Total',
+		            data: defaultData,
+		            backgroundColor: poolColors(total, 0.8),
+		            //borderColor: poolColors(total, 1),
+		            borderWidth: 1
+		        }]
+		    },
+			options: {
+		         scales: {
+		        	 xAxes: [{
+		        		 stacked: true,
+		        		 barPercentage: 1.0,
+		        		 categoryPercentage: 0.8,
+	        		 }],
+		             yAxes: [{
+		            	 stacked: true,
+		                 ticks: {
+		                     beginAtZero:true,
+		                 }
+		             }]
+		         },
+		         tooltips: {
+		             callbacks: {
+		            	 title: function(tooltipItems, data){
+		            		 return dates[tooltipItems[0]["index"]]
+		            	 },
+		                 label: function(tooltipItem, data) {
+		                     var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+		                     if (label) {
+		                         label += ': ';
+		                     }
+		                     label += Math.round(tooltipItem.yLabel * 100) / 100;
+		                     return label;
+		                 }
+		             }
+		         },
+		     }
+		});
+		console.log(data)
+	},
+	error: function(error_data){
+		console.log("error")
+		console.log(error_data)
+	},
+})
+</script>
+{% endblock %}
+
+
 {% block content %}
 {% if user.is_authenticated and user.is_active %}
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-	<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Welcome, {{ user.username }}</a>
-	<input class="form-control form-control-dark w-100" type="text" placeholder="Search transactions..." aria-label="Search">
+	<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#" style="color:#7CFC00">Welcome, {{ user.username }}</a>
+	<h2 style="color:#7CFC00">Budget Buddy</h2>
 	<ul class="navbar-nav px-3">
 		<li class="nav-item text-nowrap">
-			<a class="nav-link" href="{% url 'core:logout_view' %}">Sign out</a>
+			<a class="nav-link" href="{% url 'core:logout_view' %}" style="color:#7CFC00">Sign out</a>
 		</li>
 	</ul>
 </nav>
+
 <div class="container-fluid">
 	<div class="row">
 		<main role="main" class="container-fluid">
 			<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-				<h1 class="h2">Dashboard</h1>
+				<h1 class="h2" style="color:#7CFC00">Dashboard</h1>
 				<div class="btn-toolbar mb-2 mb-md-0">
 					<!-- <div class="btn-group mr-2">
 						<button class="btn btn-sm btn-outline-secondary">Share</button>
 						<button class="btn btn-sm btn-outline-secondary">Export</button>
 					</div> -->
-					<!-- <div class="btn-group dropleft">
+					<div class="btn-group dropleft">
 						<button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"
-						onclick="buttonFunction()">
+						aria-expanded="false">
 							<span data-feather="calendar"></span>
-							Last week
+							{{ time_frame }}
 						</button>
 						<div class="dropdown-menu" aria-labelledby="dropdownMenu">
-							<a class="dropdown-item" href="{% url 'core:dashboard_view' %}" value="week">Last week</a>
-							<a class="dropdown-item" href="{% url 'core:dashboard_view' %}" value="month">Last month</a>
-							<a class="dropdown-item" href="{% url 'core:dashboard_view' %}" value="year">Last year</a>
+							<a class="dropdown-item dropdown-toggle" href="{% url 'core:dashboard_view' 'last-week'%}">
+								Last week</a>
+							<a class="dropdown-item dropdown-toggle" href="{% url 'core:dashboard_view' 'last-month'%}">
+								Last month</a>
+							<a class="dropdown-item dropdown-toggle" href="{% url 'core:dashboard_view' 'last-year'%}">
+								Last year</a>
 						</div>
-					</div> -->					
-					<div class="dropdown dropleft">
-					    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-						Last Week
-					    </button>
-					    <div class="dropdown-menu">
-							<a class="dropdown-item" href="{% url 'core:dashboard_view' %}" id="item1" value="week" 
-								onclick="Week()">Last week</a>
-							<a class="dropdown-item" href="{% url 'core:dashboard_view' %}" id="item2" value="month" 
-								onclick="Month()">Last month</a>
-							<a class="dropdown-item" href="{% url 'core:dashboard_view' %}" id="item3" value="year" 
-								onclick="Year()">Last year</a>
-					    </div>
-					</div>					
-					<script>
-						function Week() {
-						    var x = document.getElementById("item1").innerHTML;
-						    alert("You clicked on: " + x);
-						}
-						function Month() {
-						    var x = document.getElementById("item2").innerHTML;
-						    alert("You clicked on: " + x);
-						}
-						function Year() {
-						    var x = document.getElementById("item3").innerHTML;
-						    alert("You clicked on: " + x);
-						}
-					</script>
+					</div>
 				</div>
 				
 			</div>
-
-			<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-
-			<h2>Table</h2>
+			<canvas id="myChart" width="60%" height="20%"></canvas>
+			<h2 style="color:#7CFC00">My Transactions</h2>
 			<div class="row">
 				<div class="col-8">
 					<div class="table-responsive">
@@ -80,7 +141,7 @@
 							<thead>
 								<tr>
 									<th>Date/Time</th>
-									<th>Title</th>
+									<th>Name</th>
 									<th>Amount</th>
 								</tr>
 							</thead>
@@ -100,11 +161,11 @@
 					<ul class="pagination">
 						{% if transactions.has_previous %}
 							<li>
-								<a href="?page={{ transactions.previous_page_number }}">&laquo;</a>
+								<a href="?page={{ transactions.previous_page_number }}">Previous&#32&laquo</a>
 							</li>
 						{% else %}
 							<li class="disabled">
-								<span>&laquo;</span>
+								<span>Previous&#32&laquo</span>
 							</li>
 						{% endif %} 
 						{% for i in transactions.paginator.page_range %} 
@@ -122,18 +183,18 @@
 						{% endfor %} 
 						{% if transactions.has_next %}
 							<li>
-								<a href="?page={{ transactions.next_page_number }}">&raquo;</a>
+								<a href="?page={{ transactions.next_page_number }}">&raquo&#32Next</a>
 							</li>
 						{% else %}
 						<li class="disabled">
-							<span>&raquo;</span>
+							<span>&raquo&#32Next</span>
 						</li>
 						{% endif %}
 					</ul>
 					{% endif %}
 				</div>
 				<div class="">
-					<label for="total">Total of this timeframe:</label>
+					<label for="total">Total:</label>
 					<input class="form-control" type="text" value="${{ total }}" id="total" readonly>
 					<!-- <button type="submit" class="btn btn-danger btn-lg" value="clear-history">Clear History</button> -->
 					<!-- <button type="button" class="btn btn-success btn-lg" >Calculate Total</button> -->
@@ -147,11 +208,12 @@
 <!-- Bootstrap core JavaScript
 	================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-crossorigin="anonymous"></script>
+
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="../../assets/js/vendor/popper.min.js"></script>
-<script src="../../dist/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
 
 <!-- Icons -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
@@ -159,36 +221,5 @@ crossorigin="anonymous"></script>
 	feather.replace()
 </script>
 
-<!-- Graphs -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-<script>
-	var ctx = document.getElementById("myChart");
-	var myChart = new Chart(ctx, {
-		type: 'line',
-		data: {
-			labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-			datasets: [{
-				data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-				lineTension: 0,
-				backgroundColor: 'transparent',
-				borderColor: '#007bff',
-				borderWidth: 4,
-				pointBackgroundColor: '#007bff'
-			}]
-		},
-		options: {
-			scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero: false
-					}
-				}]
-			},
-			legend: {
-				display: false,
-			}
-		}
-	});
-</script>
 {% endif %}
 {% endblock %}

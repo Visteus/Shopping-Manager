@@ -1,5 +1,7 @@
 body {
   font-size: .875rem;
+  background-color: #DCDCDC 
+
 }
 
 .feather {
@@ -105,3 +107,39 @@ body {
 
 .border-top { border-top: 1px solid #e5e5e5; }
 .border-bottom { border-bottom: 1px solid #e5e5e5; }
+
+.btn {
+    background-color: #7CFC00;
+    border: none;
+    color: black;
+    padding: 8px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    background-color: #7CFC00;
+}
+
+.dropdown-item {
+    background-color: #7CFC00;
+    border: none;
+    color: black;
+    padding: 6px 15px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+h1 {
+    text-shadow: 1px 1px #2F4F4F;
+}
+
+h2 {
+    text-shadow: 1px 1px #2F4F4F;
+}

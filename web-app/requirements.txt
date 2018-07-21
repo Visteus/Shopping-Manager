@@ -1,3 +1,11 @@
 Django==2.0.6
+<<<<<<< HEAD
 djangorestframework==3.8.2
+=======
+django-filter==2.0.0
+djangorestframework==3.8.2
+djangorestframework-jwt==1.11.0
+Markdown==2.6.11
+PyJWT==1.6.4
+>>>>>>> d3805611a5cb8139dd41744c12f454d7d248e34e
 pytz==2018.4
