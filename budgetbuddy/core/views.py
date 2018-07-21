@@ -10,7 +10,7 @@ from .models import Transaction
 from django.db.models import Q
 from rest_framework.views import APIView
 from rest_framework.response import Response
-
+from rest_framework import serializers, authentication, permissions
 
 def login_view(request):
 	if request.method == 'POST':
@@ -49,7 +49,7 @@ def dashboard_view(request):
 	user_id = request.user.id
 	transaction_list = Transaction.objects.filter(user_id=user_id)
 	page = request.GET.get('page', 1)
-	paginator = Paginator(transaction_list, 2)
+	paginator = Paginator(transaction_list, 20)
 	try:
 		transactions = paginator.page(page)
 	except PageNotAnInteger:
@@ -77,15 +77,15 @@ def logout_view(request):
 	return render(request, 'login.html', {'logout_message': "You have been logged out!"})
 
 
-
 # fetch transactions for graph (now w/ REST framework)
 class ChartData(APIView):
     
-	authentication_classes = ()
-	permission_classes = ()
-	
+	authentication_classes = (authentication.SessionAuthentication,)
+	permission_classes = (permissions.IsAuthenticated,)
+
 	def get(self, request, format=None):
-		transaction_list = Transaction.objects.all()#filter(user = request.user.id)
+		user_id = self.request.user.id
+		transaction_list = Transaction.objects.filter(user =user_id)
 		total_list = []
 		name_list = []
 		date_list = []
@@ -96,22 +96,12 @@ class ChartData(APIView):
 		    date_list.append(transaction.created_at.strftime("%B %d, %Y, %I:%M %p"))
 
 		data = {
+			"user": user_id,
 			"labels": name_list,
 			"totals": total_list,
 			"dates": date_list,
 		}
 		
 		return Response(data)
-
-#def get(self, request, format=None):
-#		labels = ["General", "Fun", "Gas", "Groceries","something?"]
-#		default_items= [5.55, 4, 35.00, 57.82, 6.99]
-#		data = {
-#			"labels": labels,
-#			"totals": default_items,
-#		}
-#		
-#		return Response(data)
-
 
 	
