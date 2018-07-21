@@ -12,6 +12,22 @@
 var endpoint = '/api/chart/data/'
 var defaultData = []
 var labels = []
+
+var poolColors = function (num, opacity) {
+    var pool = [];
+    for(i=0;i<num;i++){
+        pool.push(dynamicColors(opacity));
+    }
+    return pool;
+}
+
+var dynamicColors = function(opacity) {
+    var r = Math.floor(Math.random() * 255);
+    var g = Math.floor(Math.random() * 255);
+    var b = Math.floor(Math.random() * 255);
+    return "rgb(" + r + "," + g + "," + b + "," + opacity + ")";
+}
+
 $.ajax({
 	method: "GET",
 	url: endpoint,
@@ -19,6 +35,7 @@ $.ajax({
 		labels = data.labels
 		defaultData = data.totals
 		dates = data.dates
+		total = data.totals.length
 		var ctx = document.getElementById('myChart').getContext('2d');
 		var myChart = new Chart(ctx, {
 		    type: 'bar',
@@ -27,22 +44,8 @@ $.ajax({
 		        datasets: [{
 		            label: 'Total',
 		            data: defaultData,
-		            backgroundColor: [
-		                'rgba(255, 99, 132, 0.2)',
-		                'rgba(54, 162, 235, 0.2)',
-		                'rgba(255, 206, 86, 0.2)',
-		                'rgba(75, 192, 192, 0.2)',
-		                'rgba(153, 102, 255, 0.2)',
-		                'rgba(255, 159, 64, 0.2)'
-		            ],
-		            borderColor: [
-		                'rgba(255,99,132,1)',
-		                'rgba(54, 162, 235, 1)',
-		                'rgba(255, 206, 86, 1)',
-		                'rgba(75, 192, 192, 1)',
-		                'rgba(153, 102, 255, 1)',
-		                'rgba(255, 159, 64, 1)'
-		            ],
+		            backgroundColor: poolColors(total, 0.8),
+		            //borderColor: poolColors(total, 1),
 		            borderWidth: 1
 		        }]
 		    },
@@ -50,6 +53,8 @@ $.ajax({
 		         scales: {
 		        	 xAxes: [{
 		        		 stacked: true,
+		        		 barPercentage: 1.0,
+		        		 categoryPercentage: 0.8,
 	        		 }],
 		             yAxes: [{
 		            	 stacked: true,
