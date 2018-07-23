@@ -1,0 +1,225 @@
+{% extends 'base.html' %} 
+{% load staticfiles %} 
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'dashboard.css' %}"> 
+{% endblock %}
+
+
+{% block jquery %}
+<script>
+<!-- Graphs -->
+var endpoint = '/api/chart/data/'
+var defaultData = []
+var labels = []
+
+var poolColors = function (num, opacity) {
+    var pool = [];
+    for(i=0;i<num;i++){
+        pool.push(dynamicColors(opacity));
+    }
+    return pool;
+}
+
+var dynamicColors = function(opacity) {
+    var r = Math.floor(Math.random() * 255);
+    var g = Math.floor(Math.random() * 255);
+    var b = Math.floor(Math.random() * 255);
+    return "rgb(" + r + "," + g + "," + b + "," + opacity + ")";
+}
+
+$.ajax({
+	method: "GET",
+	url: endpoint,
+	success: function(data){
+		labels = data.dates
+		defaultData = data.totals
+		dates = data.dates
+		total = data.totals.length
+		var ctx = document.getElementById('myChart').getContext('2d');
+		var myChart = new Chart(ctx, {
+		    type: 'bar',
+		    data: {
+		        labels: labels,
+		        datasets: [{
+		            label: 'Total',
+		            data: defaultData,
+		            backgroundColor: poolColors(total, 0.8),
+		            //borderColor: poolColors(total, 1),
+		            borderWidth: 1
+		        }]
+		    },
+			options: {
+		         scales: {
+		        	 xAxes: [{
+		        		 stacked: true,
+		        		 barPercentage: 1.0,
+		        		 categoryPercentage: 0.8,
+	        		 }],
+		             yAxes: [{
+		            	 stacked: true,
+		                 ticks: {
+		                     beginAtZero:true,
+		                 }
+		             }]
+		         },
+		         tooltips: {
+		             callbacks: {
+		            	 title: function(tooltipItems, data){
+		            		 return dates[tooltipItems[0]["index"]]
+		            	 },
+		                 label: function(tooltipItem, data) {
+		                     var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+		                     if (label) {
+		                         label += ': ';
+		                     }
+		                     label += Math.round(tooltipItem.yLabel * 100) / 100;
+		                     return label;
+		                 }
+		             }
+		         },
+		     }
+		});
+		console.log(data)
+	},
+	error: function(error_data){
+		console.log("error")
+		console.log(error_data)
+	},
+})
+</script>
+{% endblock %}
+
+
+{% block content %}
+{% if user.is_authenticated and user.is_active %}
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+	<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#" style="color:#7CFC00">Welcome, {{ user.username }}</a>
+	<h2 style="color:#7CFC00">Budget Buddy</h2>
+	<ul class="navbar-nav px-3">
+		<li class="nav-item text-nowrap">
+			<a class="nav-link" href="{% url 'core:logout_view' %}" style="color:#7CFC00">Sign out</a>
+		</li>
+	</ul>
+</nav>
+
+<div class="container-fluid">
+	<div class="row">
+		<main role="main" class="container-fluid">
+			<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+				<h1 class="h2" style="color:#7CFC00">Dashboard</h1>
+				<div class="btn-toolbar mb-2 mb-md-0">
+					<!-- <div class="btn-group mr-2">
+						<button class="btn btn-sm btn-outline-secondary">Share</button>
+						<button class="btn btn-sm btn-outline-secondary">Export</button>
+					</div> -->
+					<div class="btn-group dropleft">
+						<button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">
+							<span data-feather="calendar"></span>
+							{{ time_frame }}
+						</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenu">
+							<a class="dropdown-item dropdown-toggle" href="{% url 'core:dashboard_view' 'last-week'%}">
+								Last week</a>
+							<a class="dropdown-item dropdown-toggle" href="{% url 'core:dashboard_view' 'last-month'%}">
+								Last month</a>
+							<a class="dropdown-item dropdown-toggle" href="{% url 'core:dashboard_view' 'last-year'%}">
+								Last year</a>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			<canvas id="myChart" width="60%" height="20%"></canvas>
+			<h2 style="color:#7CFC00">My Transactions</h2>
+			<div class="row">
+				<div class="col-8">
+					<div class="table-responsive">
+						<table class="table table-striped table-sm">
+							<thead>
+								<tr>
+									<th>Date/Time</th>
+									<th>Name</th>
+									<th>Amount</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for transaction in transactions %}
+								<tr>
+									<td>{{ transaction.created_at }}</td>
+									<td>{{ transaction.title }}</td>
+									<td>${{ transaction.total }}</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+
+					{% if transactions.has_other_pages %}
+					<ul class="pagination">
+						{% if transactions.has_previous %}
+							<li>
+								<a href="?page={{ transactions.previous_page_number }}">Previous&#32&laquo</a>
+							</li>
+						{% else %}
+							<li class="disabled">
+								<span>Previous&#32&laquo</span>
+							</li>
+						{% endif %} 
+						{% for i in transactions.paginator.page_range %} 
+							{% if transactions.number == i %}
+								<li class="active">
+									<span>{{ i }}
+										<span class="sr-only">(current)</span>
+									</span>
+								</li>
+							{% else %}
+								<li>
+									<a href="?page={{ i }}">{{ i }}</a>
+								</li>
+							{% endif %} 
+						{% endfor %} 
+						{% if transactions.has_next %}
+							<li>
+								<a href="?page={{ transactions.next_page_number }}">&raquo&#32Next</a>
+							</li>
+						{% else %}
+						<li class="disabled">
+							<span>&raquo&#32Next</span>
+						</li>
+						{% endif %}
+					</ul>
+					{% endif %}
+				</div>
+				<div class="">
+					<label for="total">Total:</label>
+					<input class="form-control" type="text" value="${{ total }}" id="total" readonly>
+					<!-- <button type="submit" class="btn btn-danger btn-lg" value="clear-history">Clear History</button> -->
+					<!-- <button type="button" class="btn btn-success btn-lg" >Calculate Total</button> -->
+				</div>
+			</div>
+			
+		</main>
+	</div>
+</div>
+
+<!-- Bootstrap core JavaScript
+	================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+
+
+<!-- Icons -->
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+<script>
+	feather.replace()
+</script>
+
+{% endif %}
+{% endblock %}
