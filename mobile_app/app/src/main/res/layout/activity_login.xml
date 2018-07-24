@@ -22,7 +22,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.56"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_alignParentRight="true" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -52,7 +53,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.178"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_alignParentLeft="true" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/ConstraintLayout2"
@@ -79,7 +81,9 @@
             android:ems="10"
             android:hint="@string/username"
             android:inputType="textPersonName"
+            android:lineSpacingExtra="10sp"
             android:textColor="@color/colorwhite"
+            android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.491"

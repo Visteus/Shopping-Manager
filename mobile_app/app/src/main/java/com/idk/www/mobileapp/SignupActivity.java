@@ -22,27 +22,28 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        overridePendingTransition(R.anim.left_to_right_fadein,R.anim.right_to_left_fadeout);
 
-        final EditText usernameid = (EditText) findViewById(R.id.userid);
-        final EditText passwordid = (EditText) findViewById(R.id.pswid);
-        final EditText emailid = (EditText) findViewById(R.id.email);
-        final EditText addressid = (EditText) findViewById(R.id.address);
-        final Button registerbtn = (Button) findViewById(R.id.registerbtn);
+        final EditText userNameId = (EditText) findViewById(R.id.userid);
+        final EditText passWordId = (EditText) findViewById(R.id.pswid);
+        final EditText emailId = (EditText) findViewById(R.id.email);
+        final EditText addressId = (EditText) findViewById(R.id.address);
+        final Button registerBtn = (Button) findViewById(R.id.registerbtn);
 
-        registerbtn.setOnClickListener(new View.OnClickListener() {
+        registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                String userid = usernameid.getText().toString();
-                String pswid = passwordid.getText().toString();
-                String email = emailid.getText().toString();
-                String address = addressid.getText().toString();
+                String userId = userNameId.getText().toString();
+                String pswId = passWordId.getText().toString();
+                String email = emailId.getText().toString();
+                String address = addressId.getText().toString();
 
                 Response.Listener<String> listener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            JSONObject jresponse = new JSONObject(response);
-                            boolean success = jresponse.getBoolean("Success!");
+                            JSONObject jResponse = new JSONObject(response);
+                            boolean success = jResponse.getBoolean("Success!");
 
                             if(success){
                                 Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
@@ -57,7 +58,7 @@ public class SignupActivity extends AppCompatActivity {
                     }
                 };
 
-                SignupRequest request = new SignupRequest(userid, pswid, email, address, listener);
+                SignupRequest request = new SignupRequest(userId, pswId, email, address, listener);
                 RequestQueue queue = Volley.newRequestQueue(SignupActivity.this);
                 queue.add(request);
             }
@@ -72,5 +73,6 @@ public class SignupActivity extends AppCompatActivity {
         Intent signinpage = new Intent(getApplicationContext(), LoginActivity.class);
         finish();
         startActivity(signinpage);
+
     }
 }

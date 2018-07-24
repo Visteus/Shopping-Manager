@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddItemPopUp">
+
+
+    <EditText
+        android:id="@+id/etNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/etName"
+        android:layout_alignStart="@+id/etName"
+        android:layout_alignLeft="@+id/etName"
+        android:hint="Price"
+        android:inputType="numberDecimal"
+        android:textColor="#000000"
+        android:textColorHint="#000000" />
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_above="@+id/buttonAdd"
+        android:layout_centerHorizontal="true"
+        android:hint="Item Name"
+        android:inputType="textCapSentences"
+        android:textColor="#000000"
+        android:textColorHint="#000000" />
+
+    <EditText
+        android:id="@+id/etAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/etName"
+        android:layout_alignRight="@+id/etName"
+        android:layout_alignTop="@+id/etNumber"
+        android:gravity="end"
+        android:hint="x1"
+        android:inputType="number"
+        android:textAlignment="textEnd"
+        android:textColor="#000000"
+        android:textColorHint="#000000" />
+
+    <Button
+        android:id="@+id/buttonAdd"
+        android:text="Add"
+        android:onClick="onAddClick"
+        android:textColor="#000000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>

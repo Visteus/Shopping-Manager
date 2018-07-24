@@ -13,12 +13,12 @@ public class Activity_User extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
-        final TextView DefaultMessage = (TextView) findViewById(R.id.defmessage);
+        final TextView defaultMessage = (TextView) findViewById(R.id.defmessage);
 
         Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
+        String userName = intent.getStringExtra("username");
 
-        String message = "Welcome " + username + " !";
-        DefaultMessage.setText(message);
+        String message = "Welcome " + userName + " !";
+        defaultMessage.setText(message);
     }
 }

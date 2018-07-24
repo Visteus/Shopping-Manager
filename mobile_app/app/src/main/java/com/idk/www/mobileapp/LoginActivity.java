@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.content.Intent;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 
 import com.android.volley.RequestQueue;
@@ -20,30 +22,33 @@ import java.util.Random;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private Button btnsignin;
-    private Button btnsignup;
-    private Button btnguest;
-    RelativeLayout currentbakgrd;
-    int bakgrdroulette[];
+    private Button btnSignin;
+    private Button btnSignUp;
+    private Button btnGuest;
+    private EditText textSignIn;
+    private EditText pswSignIn;
+    RelativeLayout currentBakGrd;
+    int bakGrdRoulette[];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        overridePendingTransition(R.anim.left_to_right_fadein,R.anim.right_to_left_fadeout);
+        currentBakGrd = (RelativeLayout) findViewById(R.id.relativelayout1);
+        bakGrdRoulette = new int[]{R.drawable.background, R.drawable.background2, R.drawable.background3, R.drawable.background4, R.drawable.background5, R.drawable.background6};
 
-        currentbakgrd = (RelativeLayout) findViewById(R.id.relativelayout1);
-        bakgrdroulette = new int[]{R.drawable.background, R.drawable.background2, R.drawable.background3, R.drawable.background4, R.drawable.background5, R.drawable.background6};
 
-        final EditText textsignin = (EditText) findViewById(R.id.loginname);
-        final EditText pswsignin = (EditText) findViewById(R.id.loginpsw);
-        btnsignin = (Button) findViewById(R.id.signinbtn);
-        btnsignup = (Button) findViewById(R.id.signupbtn);
-        btnguest = (Button) findViewById(R.id.guestbtn);
+        textSignIn = (EditText) findViewById(R.id.loginname);
+        pswSignIn = (EditText) findViewById(R.id.loginpsw);
+        btnSignin = (Button) findViewById(R.id.signinbtn);
+        btnSignUp = (Button) findViewById(R.id.signupbtn);
+        btnGuest = (Button) findViewById(R.id.guestbtn);
 
-        btnsignin.setOnClickListener(new View.OnClickListener() {
+        btnSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                final String username = textsignin.getText().toString();
-                final String password = pswsignin.getText().toString();
+                final String userName = textSignIn.getText().toString();
+                final String passWord = pswSignIn.getText().toString();
 
                 //listener
                 Response.Listener<String> listener = new Response.Listener<String>() {
@@ -55,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             if(success){// user page with their username
                                 Intent intent = new Intent(LoginActivity.this, Activity_User.class);
-                                intent.putExtra("username", username);
+                                intent.putExtra("username", userName);
                             }
                             else {
                                 AlertDialog.Builder message = new AlertDialog.Builder(LoginActivity.this);
@@ -67,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 };
 
-                LoginRequest Login = new LoginRequest(username, password, listener);
+                LoginRequest Login = new LoginRequest(userName, passWord, listener);
                 RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                 queue.add(Login);
             }
@@ -93,8 +98,8 @@ public class LoginActivity extends AppCompatActivity {
 
     //background image roulette
     protected void onResume() {
-        if(currentbakgrd!=null)
-            currentbakgrd.setBackgroundResource(bakgrdroulette[randomimg()]);
+        if(currentBakGrd!=null)
+            currentBakGrd.setBackgroundResource(bakGrdRoulette[randomimg()]);
         super.onResume();
     }
 
