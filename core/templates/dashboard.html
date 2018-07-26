@@ -142,6 +142,21 @@
 	var graphLabels = {{ json_graph_labels|safe }};
 	var totalList = {{ json_transaction_total_list|safe }};
 	var dateList = {{ json_transaction_date_list|safe }}
+	
+	var poolColors = function (num, opacity) {
+		var pool = [];
+		for(i=0;i<num;i++){
+		    pool.push(dynamicColors(opacity));
+		}
+		return pool;
+	}
+	var dynamicColors = function(opacity) {
+		var r = Math.floor(Math.random() * 255);
+		var g = Math.floor(Math.random() * 255);
+		var b = Math.floor(Math.random() * 255);
+		return "rgb(" + r + "," + g + "," + b + "," + opacity + ")";
+	}
+	
 	var myChart = new Chart(ctx, {
 		type: 'bar',
 		data: {
@@ -149,22 +164,8 @@
 			datasets: [{
 				label: 'Total',
 				data: totalList,
-				backgroundColor: [
-					'rgba(255, 99, 132, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(255, 206, 86, 0.2)',
-					'rgba(75, 192, 192, 0.2)',
-					'rgba(153, 102, 255, 0.2)',
-					'rgba(255, 159, 64, 0.2)'
-				],
-				borderColor: [
-					'rgba(255,99,132,1)',
-					'rgba(54, 162, 235, 1)',
-					'rgba(255, 206, 86, 1)',
-					'rgba(75, 192, 192, 1)',
-					'rgba(153, 102, 255, 1)',
-					'rgba(255, 159, 64, 1)'
-				],
+				backgroundColor: poolColors(totalList.length, 0.8),
+				//borderColor: poolColors(totalList.length, 1),
 				borderWidth: 1
 			}]
 		},
