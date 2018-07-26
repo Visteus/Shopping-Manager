@@ -137,35 +137,47 @@
 <script>
 	feather.replace()
 </script>
-<script>	
-	var ctx = document.getElementById("myChart").getContext('2d');
-	var graphLabels = {{ json_graph_labels|safe }};
-	var totalList = {{ json_transaction_total_list|safe }};
-	var dateList = {{ json_transaction_date_list|safe }}
-	
-	var poolColors = function (num, opacity) {
-		var pool = [];
-		for(i=0;i<num;i++){
-		    pool.push(dynamicColors(opacity));
-		}
-		return pool;
-	}
-	var dynamicColors = function(opacity) {
-		var r = Math.floor(Math.random() * 255);
-		var g = Math.floor(Math.random() * 255);
-		var b = Math.floor(Math.random() * 255);
-		return "rgb(" + r + "," + g + "," + b + "," + opacity + ")";
-	}
-	
-	var myChart = new Chart(ctx, {
+<script>
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var graphLabels = {{ json_graph_labels|safe }};
+    var totalList = {{ json_transaction_total_list|safe }};
+    var dateList = {{ json_transaction_date_list|safe }}
+    
+    // creates color gradient between two colors with a given number of steps
+    var interpolateColors = function(color1, color2, steps)
+    {
+        var stepFactor = 1/(steps-1), colorArray = [];
+        
+        color1 = color1.match(/\d+/g).map(Number);
+        color2 = color2.match(/\d+/g).map(Number);
+        for(var i = 0; i < steps; i++) 
+        {
+            colorArray.push(interpolateColor(color1, color2, stepFactor * i));
+        }
+        return colorArray;
+    }
+    // returns a single set of RGB values for an interpolated color
+    var interpolateColor = function(color1, color2, factor) {
+    
+        if (arguments.length < 3) { 
+            factor = 0.5; 
+        }
+        var result = color1.slice();
+        for (var i = 0; i < 3; i++) {
+            result[i] = Math.round(result[i] + factor * (color2[i] - color1[i]));
+        }
+        return "rgb("+result[0]+","+result[1]+","+result[2]+")";
+    };
+    
+    var myChart = new Chart(ctx, {
 		type: 'bar',
 		data: {
-			labels: graphLabels,
+			labels: dateList,
 			datasets: [{
 				label: 'Total',
 				data: totalList,
-				backgroundColor: poolColors(totalList.length, 0.8),
-				//borderColor: poolColors(totalList.length, 1),
+				backgroundColor: interpolateColors("rgb(173, 204, 255)","rgb(132, 141, 155))",totalList.length),
+                //borderColor: poolColors(totalList.length, 1),
 				borderWidth: 1
 			}]
 		},
@@ -185,7 +197,7 @@
 		tooltips: {
 			callbacks: {
 				title: function(tooltipItems, data) {
-					return dateList[tooltipItems[0]["index"]]
+					return graphLabels[tooltipItems[0]["index"]]
 				},
 				label: function(tooltipItems, data) {
 					var label = data.datasets[tooltipItem.datasetIndex].label || '';
