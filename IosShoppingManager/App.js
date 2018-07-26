@@ -84,7 +84,8 @@ class LoginPage extends Component
     this.props.navigator.push({
       title: 'Budget Mananger',
       component: MainPage,
-      //leftButtonTitle: 'Back'
+      leftButtonTitle: 'Logout',
+      onLeftButtonPress: this.onBackButtonPress
     });
   }
   
@@ -92,6 +93,19 @@ class LoginPage extends Component
     const user = this.state.username;
     const pass = this.state.password;
     Alert.alert("Sign up", user + " " + pass);
+  }
+
+  onBackButtonPress = () =>
+  {
+    Alert.alert(
+      "Logout",
+      "Are you sure you want to logout?",
+      [
+        {text: "Yes", onPress: () => this.props.navigator.pop()},
+        {text: "Cancel", onPress: () => console.log("Cancelled"), style: "cancel"},
+      ],
+      {cancelable: false}
+      );
   }
   
 }
@@ -108,6 +122,7 @@ class MainPage extends Component {
       total: 0
     }
   }
+  
   
   //Turn the user input into one string
   makeText(){
@@ -154,7 +169,9 @@ class MainPage extends Component {
         />
        
 	      //Buttons
-        <Button title = "Add" onPress = {() => this.makeText()} />
+        <Button
+          title = "Add"
+          onPress = {() => this.makeText()} />
        
         <Text>{"Total: $" + this.state.total}</Text>
 
