@@ -105,7 +105,7 @@ def dashboard_view(request, slug):
 
 	# Pagination
 	page = request.GET.get('page', 1)
-	paginator = Paginator(transaction_list, 4)
+	paginator = Paginator(transaction_list, 20)
 	try:
 		transactions = paginator.page(page)
 	except PageNotAnInteger:
