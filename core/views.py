@@ -132,8 +132,11 @@ def dashboard_view(request, slug):
 	)
 
 
-# @login_required(login_url='/')
-# def delete_history(request):
+@login_required(login_url='/')
+def delete_history(request):
+	user_id = request.user.id
+	Transaction.objects.filter(user_id=user_id).delete()
+	return HttpResponseRedirect(reverse('core:dashboard_view', kwargs={'slug': 'last-week'}))
 
 @login_required(login_url='/')
 def logout_view(request):
