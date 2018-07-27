@@ -88,31 +88,24 @@ def dashboard_view(request, slug):
 		created_at__gte=datetime(end_date.year, end_date.month, end_date.day, 0, 0, 0),
     	created_at__lte=datetime(start_date.year, start_date.month, start_date.day, 23, 59, 59)
 	)
+
+	# Graph
+	graph_xAxis = []
+	graph_column_total = []
+	for transaction in transaction_list:
+		if transaction.created_at.date().strftime('%b %d') not in graph_xAxis:
+			graph_xAxis.append(transaction.created_at.date().strftime('%b %d'))
+			graph_column_total.append(transaction.total)
+		else:
+			graph_column_total[graph_xAxis.index(transaction.created_at.date().strftime('%b %d'))] += transaction.total
+	json_graph_xAxis = json.dumps(graph_xAxis)
+	json_graph_column_total = json.dumps(['{:.2f}'.format(x) for x in graph_column_total])
+
 	transaction_list = list(reversed(transaction_list))
-	
-
-	# Graph labels
-	graph_labels = []
-	for transaction in transaction_list:
-		if transaction.created_at.date().strftime('%b %d') not in graph_labels:
-			graph_labels.append(transaction.created_at.date().strftime('%b %d'))
-	json_graph_labels = json.dumps(graph_labels)
-
-	# Amount of each transaction into a list
-	transaction_total_list = []
-	for transaction in transaction_list:
-		transaction_total_list.append(str(transaction.total))
-	json_transaction_total_list = json.dumps(transaction_total_list)
-
-	# Date list
-	transaction_date_list = []
-	for transaction in transaction_list:
-		transaction_date_list.append(transaction.created_at.date().strftime('%b %d'))
-	json_transaction_date_list = json.dumps(transaction_date_list)
 
 	# Pagination
 	page = request.GET.get('page', 1)
-	paginator = Paginator(transaction_list, 2)
+	paginator = Paginator(transaction_list, 4)
 	try:
 		transactions = paginator.page(page)
 	except PageNotAnInteger:
@@ -120,7 +113,6 @@ def dashboard_view(request, slug):
 	except EmptyPage:
 		transactions = paginator.page(paginator.num_pages)
 
-	# Total
 	total = 0
 	for transaction in transaction_list:
 		total += transaction.total
@@ -133,9 +125,8 @@ def dashboard_view(request, slug):
 			'user': request.user,
 			'total': total,
 			'time_frame': time_frame,
-			'json_graph_labels': json_graph_labels,
-			'json_transaction_total_list': json_transaction_total_list,
-			'json_transaction_date_list': json_transaction_date_list
+			'json_graph_xAxis': json_graph_xAxis,
+			'json_graph_column_total': json_graph_column_total,
 		}
 	)
 
