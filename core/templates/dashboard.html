@@ -42,10 +42,9 @@
 				
 			</div>
 
-			<canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
-			<!-- <div id="myChart"></div> -->
+			<canvas class="my-4 w-100" id="myChart" width="900" height="350"></canvas>
 
-			<h2>Table</h2>
+			<h2>Transactions</h2>
 			<div class="row">
 				<div class="col-8">
 					<div class="table-responsive">
@@ -58,7 +57,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								{% for transaction in transactions reversed %}
+								{% for transaction in transactions %}
 								<tr>
 									<td>{{ transaction.created_at }}</td>
 									<td>{{ transaction.title }}</td>
@@ -139,9 +138,8 @@
 </script>
 <script>
     var ctx = document.getElementById("myChart").getContext('2d');
-    var graphLabels = {{ json_graph_labels|safe }};
-    var totalList = {{ json_transaction_total_list|safe }};
-    var dateList = {{ json_transaction_date_list|safe }}
+    var xAxis = {{ json_graph_xAxis|safe }};
+    var columnTotal = {{ json_graph_column_total|safe }};
     
     // creates color gradient between two colors with a given number of steps
     var interpolateColors = function(color1, color2, steps)
@@ -172,12 +170,11 @@
     var myChart = new Chart(ctx, {
 		type: 'bar',
 		data: {
-			labels: dateList,
+			labels: xAxis,
 			datasets: [{
 				label: 'Total',
-				data: totalList,
-				backgroundColor: interpolateColors("rgb(173, 204, 255)","rgb(132, 141, 155))",totalList.length),
-                //borderColor: poolColors(totalList.length, 1),
+				data: columnTotal,
+				backgroundColor: interpolateColors("rgb(173, 204, 255)","rgb(132, 141, 155))",columnTotal.length),
 				borderWidth: 1
 			}]
 		},
@@ -197,7 +194,7 @@
 		tooltips: {
 			callbacks: {
 				title: function(tooltipItems, data) {
-					return graphLabels[tooltipItems[0]["index"]]
+					return xAxis[tooltipItems[0]["index"]]
 				},
 				label: function(tooltipItems, data) {
 					var label = data.datasets[tooltipItem.datasetIndex].label || '';
