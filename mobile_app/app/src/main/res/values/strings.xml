@@ -19,6 +19,14 @@
     <string name="add_item">Add Item</string>
     <string name="checkout">Checkout</string>
     <string name="amount">Amount</string>
+    <string name="total">Total</string>
+    <string name="x1">x1</string>
+    <string name="itemname">Item Name</string>
+    <string name="add">Add</string>
+    <string name="price">Price</string>
+    <string name="transactionname">Transaction Name</string>
+    <string name="aftertax">After Tax:</string>
+    <string name="optiontax">(Optional Tax%)</string>
     <string name="about_desc">About Group 2,</string>
     <string name="h_black">Harrison Black - Mobile App Functionality</string>
     <string name="j_chaulk">Jacob Chaulk - Data Visualization and Database</string>

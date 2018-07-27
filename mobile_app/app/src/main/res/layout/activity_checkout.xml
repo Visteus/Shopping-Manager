@@ -4,87 +4,99 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorteal"
+    android:background="@color/colordarkblue"
     tools:context=".Checkout">
 
-    <Button
-        android:id="@+id/buttonBack"
+    <RelativeLayout
+        android:layout_marginTop="200dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/buttonCheckout"
-        android:onClick="onBackClick"
-        android:text="Back"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/buttonCheckout" />
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/buttonCheckout"
-        android:layout_width="295dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:onClick="onCheckoutClick"
-        android:text="    Checkout    "
-        android:layout_alignParentLeft="true" />
+        <Button
+            android:id="@+id/buttonBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/etAfterTax"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@+id/buttonCheckout"
+            android:layout_toRightOf="@+id/buttonCheckout"
+            android:background="@color/colorteal"
+            android:onClick="onBackClick"
+            android:text="@string/back" />
 
-    <TextView
-        android:id="@+id/tvTransactionName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/etTransactionName"
-        android:layout_marginTop="-223dp"
-        android:background="@drawable/textcontentstyle"
-        android:text="Transaction Name"
-        android:textColor="@color/colordarkblue"
-        android:layout_alignParentLeft="true" />
+        <EditText
+            android:id="@+id/etAfterTax"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tvAfterTax"
+            android:background="@color/colorwhite"
+            android:hint="@string/optiontax"
+            android:textColorHint="@color/colordarkblue"
+            android:layout_alignParentLeft="true" />
 
-    <TextView
-        android:id="@+id/tvTotal"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="202dp"
-        android:background="@drawable/textcontentstyle"
-        android:text="Total"
-        android:textColor="@color/colordarkblue"
-        android:layout_alignParentLeft="true" />
+        <Button
+            android:id="@+id/buttonCheckout"
+            android:layout_width="295dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/etAfterTax"
+            android:layout_marginTop="2dp"
+            android:background="@color/colorteal"
+            android:onClick="onCheckoutClick"
+            android:text="@string/checkout" />
 
-    <TextView
-        android:id="@+id/tvAfterTax"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvTotal"
-        android:background="@drawable/textcontentstyle"
-        android:text="After Tax:"
-        android:textColor="@color/colordarkblue"
-        android:layout_alignParentLeft="true" />
+        <TextView
+            android:id="@+id/tvAfterTax"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tvTotal"
+            android:background="@color/colorwhite"
+            android:text="@string/aftertax"
+            android:gravity="left|center_vertical"
+            android:textColor="@color/colordarkblue"
+            android:layout_alignParentLeft="true" />
 
-    <EditText
-        android:id="@+id/etAfterTax"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvAfterTax"
-        android:hint="Total After Tax (Optional %)"
-        android:background="@drawable/textcontentstyle"
-        android:textColorHint="@color/colordarkblue"
-        android:layout_alignParentLeft="true" />
+        <TextView
+            android:id="@+id/tvTransactionName"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorwhite"
+            android:gravity="left|center_vertical"
+            android:text="@string/transactionname"
+            android:textColor="@color/colordarkblue"
+            android:textSize="18sp"
+            android:layout_alignParentLeft="true" />
 
-    <EditText
-        android:id="@+id/etTransactionName"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_above="@+id/tvTotal"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="-202dp"
-        android:hint="Transaction name"
-        android:background="@drawable/textcontentstyle"
-        android:textColorHint="@color/colordarkblue"
-        android:layout_alignParentLeft="true" />
+        <TextView
+            android:id="@+id/tvTotal"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/etTransactionName"
+            android:background="@color/colorwhite"
+            android:gravity="left|center_vertical"
+            android:text="@string/total"
+            android:textColor="@color/colordarkblue"
+            android:layout_alignParentLeft="true" />
+
+        <EditText
+            android:id="@+id/etTransactionName"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tvTransactionName"
+            android:background="@color/colorwhite"
+            android:hint="@string/transactionname"
+            android:textColorHint="@color/colordarkblue"
+            android:layout_alignParentLeft="true" />
+    </RelativeLayout>
+
 
 </RelativeLayout>

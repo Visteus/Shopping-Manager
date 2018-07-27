@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorteal"
+    android:background="#00ffffff"
     tools:context=".AddItemPopUp">
 
     <RelativeLayout
@@ -19,15 +19,16 @@
             android:layout_height="55dp"
             android:layout_alignTop="@+id/etNumber"
             android:layout_toEndOf="@+id/etNumber"
-            android:gravity="end"
-            android:hint="x1"
+            android:gravity="right|center_vertical"
+            android:hint="@string/x1"
+            android:background="@color/colordarkblue"
             android:inputType="number"
-            android:textAlignment="textEnd"
-            android:textColor="#000000"
-            android:textColorHint="#000000"
+            android:textColor="@color/colorwhite"
+            android:textColorHint="@color/coloropaquewhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/etNumber"
-            tools:layout_editor_absoluteY="215dp" />
+            tools:layout_editor_absoluteY="215dp"
+            android:layout_toRightOf="@+id/etNumber" />
 
         <EditText
             android:id="@+id/etName"
@@ -35,13 +36,16 @@
             android:layout_height="55dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:hint="Item Name"
+            android:hint="@string/itemname"
             android:inputType="textCapSentences"
-            android:textColor="#000000"
-            android:textColorHint="#000000"
+            android:background="@color/colordarkblue"
+            android:layout_marginBottom="1dp"
+            android:textColor="@color/colorwhite"
+            android:textColorHint="@color/coloropaquewhite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_alignParentLeft="true" />
 
         <Button
             android:id="@+id/buttonAdd"
@@ -50,8 +54,10 @@
             android:layout_below="@+id/etNumber"
             android:layout_centerHorizontal="true"
             android:onClick="onAddClick"
-            android:text="Add"
-            android:textColor="#000000"
+            android:background="@color/colorteal"
+            android:layout_marginBottom="1dp"
+            android:text="@string/add"
+            android:textColor="@color/colorwhite"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:layout_editor_absoluteX="100dp" />
 
@@ -61,13 +67,16 @@
             android:layout_height="55dp"
             android:layout_alignStart="@+id/etName"
             android:layout_below="@+id/etName"
-            android:hint="Price"
+            android:hint="@string/price"
             android:inputType="numberDecimal"
-            android:textColor="#000000"
-            android:textColorHint="#000000"
+            android:background="@color/colordarkblue"
+            android:layout_marginBottom="1dp"
+            android:textColor="@color/colorwhite"
+            android:textColorHint="@color/coloropaquewhite"
             app:layout_constraintEnd_toStartOf="@+id/etAmount"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="215dp" />
+            tools:layout_editor_absoluteY="215dp"
+            android:layout_alignLeft="@+id/etName" />
     </RelativeLayout>
 
 </RelativeLayout>

@@ -21,11 +21,13 @@
     <Button
         android:id="@+id/bakbtn2"
         android:layout_width="68dp"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:onClick="onbackclick"
         android:text="@string/back"
+        android:background="@color/colorteal"
+        android:layout_margin="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -57,7 +59,7 @@
 
         android:layout_above="@+id/bakbtn2"
         android:text="@string/amount"
-        android:padding="2dp"
+        android:padding="1dp"
         android:gravity="left"
         android:textColor="#000000"
         android:textSize="23sp"
@@ -73,7 +75,10 @@
         android:layout_toStartOf="@id/bakbtn2"
         android:onClick="onCheckoutClick"
         android:text="@string/checkout"
+        android:gravity="center"
         android:textColor="#000000"
+        android:background="@color/colorteal"
+        android:layout_margin="1dp"
         android:layout_toRightOf="@+id/addItem"
         android:layout_toLeftOf="@id/bakbtn2" />
 
@@ -86,6 +91,8 @@
         android:onClick="onAddItemClick"
         android:text="@string/add_item"
         android:textColor="#000000"
+        android:background="@color/colorteal"
+        android:layout_margin="1dp"
         android:layout_alignParentLeft="true" />
 
 
@@ -96,6 +103,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tvItems"
+        android:layout_above="@+id/tvTotalPrice"
         android:layout_centerVertical="true"
         android:backgroundTintMode="add"
         android:background="@color/coloropaquewhite"
