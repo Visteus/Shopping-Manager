@@ -25,7 +25,6 @@
         </activity>
         <activity android:name=".SignupActivity" />
         <activity android:name=".Activity_About" />
-        <activity android:name=".Activity_Guest" />
         <activity android:name=".Activity_User" />
         <activity android:name=".AddItemPopUp" />
         <activity android:name=".Checkout" />

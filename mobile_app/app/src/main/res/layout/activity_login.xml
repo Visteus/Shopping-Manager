@@ -12,10 +12,10 @@
 
     <TextView
         android:id="@+id/aboutxtlink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="112dp"
+        android:layout_height="37dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/textView"
         android:onClick="onaboutpageclick"
         android:text="@string/aboutpage"
         android:textColor="@color/colorwhite"
@@ -41,21 +41,6 @@
         app:srcCompat="@drawable/app_title" />
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="12dp"
-        android:text="Group 2 COP4331 2018"
-        android:textColor="@color/colorwhite"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.178"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_alignParentLeft="true" />
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/ConstraintLayout2"
         android:layout_width="match_parent"
@@ -65,14 +50,13 @@
         android:layout_alignParentStart="true"
         android:layout_marginBottom="36dp"
         android:background="@color/colorveryopaquewhite"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="parent">
 
         <EditText
             android:id="@+id/loginname"
-            style="@style/Widget.AppCompat.EditText"
+            android:background="@drawable/textcontentstyle"
             android:layout_width="340dp"
             android:layout_height="53dp"
             android:layout_alignParentTop="true"
@@ -92,6 +76,7 @@
 
         <EditText
             android:id="@+id/loginpsw"
+            android:background="@drawable/textcontentstyle"
             android:layout_width="340dp"
             android:layout_height="53dp"
             android:layout_alignParentTop="true"

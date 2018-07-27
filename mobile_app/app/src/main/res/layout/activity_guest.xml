@@ -4,14 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity_Guest">
+    android:background="@color/coloropaqueblue"
+    tools:context=".Activity_User">
+
+    <TextView
+        android:id="@+id/defmessage"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorteal"
+        android:text="@string/defusername"
+        android:gravity="center"
+        android:textColor="@color/colorwhite"
+        android:textSize="30sp" />
 
     <Button
         android:id="@+id/bakbtn2"
-        android:layout_width="match_parent"
+        android:layout_width="68dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:onClick="onbackclick"
         android:text="@string/back"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,80 +31,86 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        android:layout_alignParentRight="true" />
 
     <TextView
         android:id="@+id/tvItems"
-        android:textColor="#000000"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="Items"
+        android:layout_width="325dp"
+        android:layout_height="34dp"
 
-        android:textSize="23sp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/defmessage"
+        android:text="@string/item_list"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:id="@+id/tvTotalPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="29dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:text="Total: $"
-        android:textColor="#000000"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
 
-        android:textSize="23sp" />
+        android:layout_above="@+id/bakbtn2"
+        android:text="@string/amount"
+        android:padding="2dp"
+        android:gravity="left"
+        android:textColor="#000000"
+        android:textSize="23sp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:id="@+id/buttonCheckout"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
+        android:layout_width="229dp"
+        android:layout_height="55dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="63dp"
+        android:layout_toEndOf="@+id/addItem"
+        android:layout_toStartOf="@id/bakbtn2"
         android:onClick="onCheckoutClick"
-        android:text="Checkout"
-        android:textColor="#000000" />
+        android:text="@string/checkout"
+        android:textColor="#000000"
+        android:layout_toRightOf="@+id/addItem"
+        android:layout_toLeftOf="@id/bakbtn2" />
 
     <Button
         android:id="@+id/addItem"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="121dp"
-        android:layout_marginEnd="24dp"
-        android:onClick="onAddItemClick"
-        android:text="Add Item"
-        android:textColor="#000000" />
-
-    <Button
-        android:id="@+id/remItem"
-        android:textColor="#000000"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/addItem"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:onClick="onRemoveItemClick"
-        android:text="Remove" />
+        android:onClick="onAddItemClick"
+        android:text="@string/add_item"
+        android:textColor="#000000"
+        android:layout_alignParentLeft="true" />
 
 
     <ListView
         android:id="@+id/listView"
-        android:textColor="#000000"
         android:layout_width="wrap_content"
-        android:layout_height="490dp"
+        android:layout_height="381dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="28dp" />
+        android:layout_below="@+id/tvItems"
+        android:layout_centerVertical="true"
+        android:backgroundTintMode="add"
+        android:background="@color/coloropaquewhite"
+        android:textFilterEnabled="true" />
+
+    <Button
+        android:id="@+id/remItem"
+        android:layout_width="33dp"
+        android:layout_height="33dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/tvItems"
+        android:background="@drawable/xico"
+        android:onClick="onRemoveItemClick"
+        android:textColor="#000000"
+        android:layout_alignParentRight="true" />
 
 
 </RelativeLayout>

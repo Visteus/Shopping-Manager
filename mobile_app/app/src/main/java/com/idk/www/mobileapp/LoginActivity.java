@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.content.Intent;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 
 import com.android.volley.RequestQueue;
@@ -86,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(signuppage);
     }
     public void onguestpageclick(View v) { //default offline mode
-        Intent guestpage = new Intent(getApplicationContext(), Activity_Guest.class);
+        Intent guestpage = new Intent(getApplicationContext(), Activity_User.class);
         finish();
         startActivity(guestpage);
     }

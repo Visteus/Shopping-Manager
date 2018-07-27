@@ -75,7 +75,7 @@ public class Checkout extends AppCompatActivity {
 
                 try{
                     taxTotal = Double.parseDouble(totalFromET);
-                    tvAfterTax.setText("Total After Tax: $" + df.format(taxTotal));
+                    tvAfterTax.setText("Total After Tax: $" + df.format(taxTotal*totalPrice+totalPrice));
                     finalEntered = true;
                 }catch (Exception e){
                     tvAfterTax.setVisibility(View.GONE);

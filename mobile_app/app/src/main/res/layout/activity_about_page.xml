@@ -7,38 +7,154 @@
     android:background="@color/colorteal"
     tools:context=".Activity_About">
 
+
+    <ScrollView
+        android:id="@+id/scrollviewlayout1"
+        android:layout_width="match_parent"
+        android:layout_height="386dp"
+        android:layout_above="@+id/bakbtn1"
+        android:layout_below="@+id/aboutPagetag"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/hBlack"
+                android:layout_width="match_parent"
+                android:layout_height="82dp"
+                android:layout_marginBottom="9dp"
+                android:layout_marginTop="9dp"
+                android:background="@color/coloropaquewhite"
+                android:ems="10"
+                android:focusable="false"
+                android:gravity="center"
+                android:lineSpacingExtra="12sp"
+                android:padding="10dp"
+                android:text="@string/h_black"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/jChaulk"
+                android:layout_width="match_parent"
+                android:layout_height="82dp"
+                android:layout_marginBottom="9dp"
+                android:layout_marginTop="9dp"
+                android:background="@color/coloropaquewhite"
+                android:ems="10"
+                android:focusable="false"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/j_chaulk"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/jDuran"
+                android:layout_width="match_parent"
+                android:layout_height="82dp"
+                android:layout_marginBottom="9dp"
+                android:layout_marginTop="9dp"
+                android:background="@color/coloropaquewhite"
+                android:ems="10"
+                android:focusable="false"
+                android:gravity="center"
+                android:lineSpacingExtra="12sp"
+                android:padding="10dp"
+                android:text="@string/j_duran"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/tPham"
+                android:layout_width="match_parent"
+                android:layout_height="82dp"
+                android:layout_marginBottom="9dp"
+                android:layout_marginTop="9dp"
+                android:background="@color/coloropaquewhite"
+                android:ems="10"
+                android:focusable="false"
+                android:gravity="center"
+                android:lineSpacingExtra="12sp"
+                android:padding="10dp"
+                android:text="@string/t_pham"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/tRichardson"
+                android:layout_width="match_parent"
+                android:layout_height="82dp"
+                android:layout_marginBottom="9dp"
+                android:layout_marginTop="9dp"
+                android:background="@color/coloropaquewhite"
+                android:ems="10"
+                android:focusable="false"
+                android:gravity="center"
+                android:lineSpacingExtra="12sp"
+                android:padding="10dp"
+                android:text="@string/t_richardson"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/tSerrano"
+                android:layout_width="match_parent"
+                android:layout_height="82dp"
+                android:background="@color/coloropaquewhite"
+                android:ems="10"
+                android:layout_marginTop="9dp"
+                android:layout_marginBottom="9dp"
+                android:focusable="false"
+                android:gravity="center"
+                android:lineSpacingExtra="12sp"
+                android:padding="10dp"
+                android:text="@string/t_serrano"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/sYang"
+                android:layout_width="match_parent"
+                android:layout_height="82dp"
+                android:background="@color/coloropaquewhite"
+                android:ems="10"
+                android:layout_marginTop="9dp"
+                android:layout_marginBottom="9dp"
+                android:focusable="false"
+                android:gravity="center"
+                android:lineSpacingExtra="12sp"
+                android:padding="10dp"
+                android:text="@string/s_yang"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/aboutPagetag"
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="30dp"
+        android:background="@color/colordarkblue"
+        android:text="@string/about_desc"
+        android:textAllCaps="true"
+        android:textSize="36sp"
+        android:textStyle="bold" />
+
     <Button
         android:id="@+id/bakbtn1"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:onClick="onbackclick"
         android:text="@string/back"
+        android:background="@color/colordarkblue"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        android:layout_alignParentLeft="true" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@color/colorwhite"
-        android:ems="10"
-        android:focusable="false"
-        android:gravity="left|center_horizontal"
-        android:inputType="textMultiLine"
-        android:maxLength="95"
-        android:maxLines="30"
-        android:padding="10dp"
-        android:text="@string/about_desc"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         android:layout_alignParentLeft="true" />
 </RelativeLayout>

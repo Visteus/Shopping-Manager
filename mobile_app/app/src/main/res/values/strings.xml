@@ -13,6 +13,19 @@
     <string name="back">Go Back</string>
     <string name="register">Register</string>
     <string name="title_activity_guest">Guest</string>
-    <string name="about_desc">About Page Harrison Tuan Jacob Tom Terrell Jesus Sixiong</string>
+    <string name="defusername">Welcome Guest,</string>
+    <string name="return_login">Already Registered? Return to Login</string>
+    <string name="item_list">Item List</string>
+    <string name="add_item">Add Item</string>
+    <string name="checkout">Checkout</string>
+    <string name="amount">Amount</string>
+    <string name="about_desc">About Group 2,</string>
+    <string name="h_black">Harrison Black - Mobile App Functionality</string>
+    <string name="j_chaulk">Jacob Chaulk - Data Visualization and Database</string>
+    <string name="j_duran">Jesus Duran - Web App API</string>
+    <string name="t_pham">Tuan Pham - React Native and Web App UI</string>
+    <string name="t_richardson">Terrell Richardson - Android APP UI</string>
+    <string name="t_serrano">Tom Serrano - React Native App</string>
+    <string name="s_yang">Sixiong Yang - Android App UI</string>
     <string name="guest_desc">Welcome Guest! jasdkljaolirehweqou rnenerkjubouehruioewh8r h2394u2hfjkwe8 32i 32hj2132423v 432</string>
 </resources>
