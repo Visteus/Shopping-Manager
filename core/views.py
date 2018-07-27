@@ -105,7 +105,7 @@ def dashboard_view(request, slug):
 
 	# Pagination
 	page = request.GET.get('page', 1)
-	paginator = Paginator(transaction_list, 20)
+	paginator = Paginator(transaction_list, 5)
 	try:
 		transactions = paginator.page(page)
 	except PageNotAnInteger:
@@ -113,6 +113,7 @@ def dashboard_view(request, slug):
 	except EmptyPage:
 		transactions = paginator.page(paginator.num_pages)
 
+	# total of this timeframe
 	total = 0
 	for transaction in transaction_list:
 		total += transaction.total
@@ -130,6 +131,9 @@ def dashboard_view(request, slug):
 		}
 	)
 
+
+# @login_required(login_url='/')
+# def delete_history(request):
 
 @login_required(login_url='/')
 def logout_view(request):

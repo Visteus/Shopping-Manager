@@ -42,11 +42,11 @@
 				
 			</div>
 
-			<canvas class="my-4 w-100" id="myChart" width="900" height="350"></canvas>
+			<canvas class="my-4 w-100" id="myChart" width="900" height="300"></canvas>
 
 			<h2>Transactions</h2>
 			<div class="row">
-				<div class="col-8">
+				<div class="col-10">
 					<div class="table-responsive">
 						<table class="table table-striped table-sm">
 							<thead>
@@ -118,11 +118,14 @@
 					</nav>
 					{% endif %}
 				</div>
-				<div class="">
-					<label for="total">Total of this timeframe:</label>
-					<input class="form-control" type="text" value="${{ total }}" id="total" readonly>
-					<!-- <button type="submit" class="btn btn-danger btn-lg" value="clear-history">Clear History</button> -->
-					<!-- <button type="button" class="btn btn-success btn-lg" >Calculate Total</button> -->
+				<div class="col-2">
+					<div class="card border-success mb-3" style="max-width: 18rem;">
+						<div class="card-header text-center">Total of this timeframe</div>
+						<div class="card-body text-success">
+							<h5 class="card-title text-center">${{total}}</h5>
+							<p class="card-text text-center"><a href="{% url 'core:delete_history' %}" class="btn btn-danger">Delete History</a></p>
+						</div>
+					</div>
 				</div>
 			</div>
 			
