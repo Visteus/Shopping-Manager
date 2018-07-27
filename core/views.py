@@ -32,16 +32,19 @@ from .serializers import TransactionSerializer, UserSerializer, UserLoginSeriali
 
 
 def login_view(request):
-	if request.method == 'POST':
-		username = request.POST['username']
-		password = request.POST['password']
-		user = authenticate(request, username=username, password=password)
-		if user is not None:
-			login(request, user)
-			return HttpResponseRedirect(reverse('core:dashboard_view', kwargs={'slug': 'last-week'}))
-		else:
-			return render(request, 'login.html', {'error_message': "Username or password incorrect"})
-	return render(request, 'login.html')
+	if not request.user.is_authenticated:
+		if request.method == 'POST':
+			username = request.POST['username']
+			password = request.POST['password']
+			user = authenticate(request, username=username, password=password)
+			if user is not None:
+				login(request, user)
+				return HttpResponseRedirect(reverse('core:dashboard_view', kwargs={'slug': 'last-week'}))
+			else:
+				return render(request, 'login.html', {'error_message': "Username or password incorrect"})
+		return render(request, 'login.html')
+	else:
+		return HttpResponseRedirect(reverse('core:dashboard_view', kwargs={'slug': 'last-week'}))
 
 
 def signup_view(request):
