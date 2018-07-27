@@ -5,93 +5,6 @@
 <link rel="stylesheet" href="{% static 'dashboard.css' %}"> 
 {% endblock %}
 
-
-{% block jquery %}
-<script>
-<!-- Graphs -->
-var endpoint = '/api/chart/data/'
-var defaultData = []
-var labels = []
-
-var poolColors = function (num, opacity) {
-    var pool = [];
-    for(i=0;i<num;i++){
-        pool.push(dynamicColors(opacity));
-    }
-    return pool;
-}
-
-var dynamicColors = function(opacity) {
-    var r = Math.floor(Math.random() * 255);
-    var g = Math.floor(Math.random() * 255);
-    var b = Math.floor(Math.random() * 255);
-    return "rgb(" + r + "," + g + "," + b + "," + opacity + ")";
-}
-
-$.ajax({
-	method: "GET",
-	url: endpoint,
-	success: function(data){
-		labels = data.dates
-		defaultData = data.totals
-		dates = data.dates
-		total = data.totals.length
-		var ctx = document.getElementById('myChart').getContext('2d');
-		var myChart = new Chart(ctx, {
-		    type: 'bar',
-		    data: {
-		        labels: labels,
-		        datasets: [{
-		            label: 'Total',
-		            data: defaultData,
-		            backgroundColor: poolColors(total, 0.8),
-		            //borderColor: poolColors(total, 1),
-		            borderWidth: 1
-		        }]
-		    },
-			options: {
-		         scales: {
-		        	 xAxes: [{
-		        		 stacked: true,
-		        		 barPercentage: 1.0,
-		        		 categoryPercentage: 0.8,
-	        		 }],
-		             yAxes: [{
-		            	 stacked: true,
-		                 ticks: {
-		                     beginAtZero:true,
-		                 }
-		             }]
-		         },
-		         tooltips: {
-		             callbacks: {
-		            	 title: function(tooltipItems, data){
-		            		 return dates[tooltipItems[0]["index"]]
-		            	 },
-		                 label: function(tooltipItem, data) {
-		                     var label = data.datasets[tooltipItem.datasetIndex].label || '';
-
-		                     if (label) {
-		                         label += ': ';
-		                     }
-		                     label += Math.round(tooltipItem.yLabel * 100) / 100;
-		                     return label;
-		                 }
-		             }
-		         },
-		     }
-		});
-		console.log(data)
-	},
-	error: function(error_data){
-		console.log("error")
-		console.log(error_data)
-	},
-})
-</script>
-{% endblock %}
-
-
 {% block content %}
 {% if user.is_authenticated and user.is_active %}
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
@@ -195,9 +108,8 @@ $.ajax({
 				</div>
 				<div class="">
 					<label for="total">Total:</label>
-					<input class="form-control" type="text" value="${{ total }}" id="total" readonly>
+					<input class="form-control" style="background-color: #DCDCDC" type="text" value="${{ total }}" id="total" readonly>
 					<!-- <button type="submit" class="btn btn-danger btn-lg" value="clear-history">Clear History</button> -->
-					<!-- <button type="button" class="btn btn-success btn-lg" >Calculate Total</button> -->
 				</div>
 			</div>
 			
@@ -214,11 +126,72 @@ $.ajax({
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 
-
 <!-- Icons -->
 <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
 <script>
 	feather.replace()
+</script>
+
+<script>	
+	var ctx = document.getElementById("myChart").getContext('2d');
+	var graphLabels = {{ json_graph_labels|safe }};
+	var totalList = {{ json_transaction_total_list|safe }};
+	var dateList = {{ json_transaction_date_list|safe }}
+	var myChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: graphLabels,
+			datasets: [{
+				label: 'Total',
+				data: totalList,
+				backgroundColor: [
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(255, 206, 86, 0.2)',
+					'rgba(75, 192, 192, 0.2)',
+					'rgba(153, 102, 255, 0.2)',
+					'rgba(255, 159, 64, 0.2)'
+				],
+				borderColor: [
+					'rgba(255,99,132,1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+					'rgba(75, 192, 192, 1)',
+					'rgba(153, 102, 255, 1)',
+					'rgba(255, 159, 64, 1)'
+				],
+				borderWidth: 1
+			}]
+		},
+		options: {
+			scales: {
+				xAxes: [{
+					stacked: true,
+				}],
+				yAxes: [{
+					stacked: true,
+					ticks: {
+						beginAtZero: true,
+					}
+				}]
+			},
+		},
+		tooltips: {
+			callbacks: {
+				title: function(tooltipItems, data) {
+					return dateList[tooltipItems[0]["index"]]
+				},
+				label: function(tooltipItems, data) {
+					var label = data.datasets[tooltipItem.datasetIndex].label || '';
+					if (label) {
+						label += ': ';
+					}
+					label += Math.round(tooltipItem.yLabel * 100) / 100;
+					return label
+				}
+			}
+		}
+	});
 </script>
 
 {% endif %}

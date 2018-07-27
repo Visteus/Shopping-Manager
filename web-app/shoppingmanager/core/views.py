@@ -9,6 +9,8 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib import messages
 from datetime import timedelta, date, datetime
 from .serializers import TransactionSerializer, UserSerializer, UserLoginSerializer
+import json
+from django.core.serializers.json import DjangoJSONEncoder
 
 # REST
 from rest_framework.decorators import api_view
@@ -90,6 +92,55 @@ def dashboard_view(request, slug):
     	created_at__lte=datetime(start_date.year, start_date.month, start_date.day, 23, 59, 59)
 	)
 
+	graph_labels = []
+	transaction_total_list = []
+	transaction_date_list = []
+	if time_frame == 'last-week':
+		for transaction in transaction_list:
+			if transaction.created_at.date().strftime('%A %b %d') not in graph_labels:
+				graph_labels.append(transaction.created_at.date().strftime('%A %b %d'))
+				transaction_total_list.append(0)
+
+			index = graph_labels.index(transaction.created_at.date().strftime('%A %b %d'))
+			transaction_total_list[index] += transaction.total
+
+		transaction_date_list = graph_labels
+		json_graph_labels = json.dumps(graph_labels)
+		json_transaction_total_list = json.dumps(transaction_total_list, cls=DjangoJSONEncoder)
+		json_transaction_date_list = json.dumps(transaction_date_list)
+
+	elif time_frame == 'last-month':
+		for transaction in transaction_list:
+			if transaction.created_at.date().strftime('%b %d') not in graph_labels:
+				graph_labels.append(transaction.created_at.date().strftime('%b %d'))
+				transaction_total_list.append(0)
+
+			index = graph_labels.index(transaction.created_at.date().strftime('%b %d'))
+			transaction_total_list[index] += transaction.total
+
+		transaction_date_list = graph_labels
+		json_graph_labels = json.dumps(graph_labels)
+		json_transaction_total_list = json.dumps(transaction_total_list, cls=DjangoJSONEncoder)
+		json_transaction_date_list = json.dumps(transaction_date_list)
+
+	else:
+		for transaction in transaction_list:
+			if transaction.created_at.date().strftime('%b') not in graph_labels:
+				graph_labels.append(transaction.created_at.date().strftime('%b'))
+				transaction_total_list.append(0)
+
+			index = graph_labels.index(transaction.created_at.date().strftime('%b'))
+			transaction_total_list[index] += transaction.total
+
+		transaction_date_list = graph_labels
+		json_graph_labels = json.dumps(graph_labels)
+		json_transaction_total_list = json.dumps(transaction_total_list, cls=DjangoJSONEncoder)
+		json_transaction_date_list = json.dumps(transaction_date_list)
+
+
+	print (transaction_total_list)
+
+
 	# Organize list from most recent to older
 	transaction_list = list(reversed(transaction_list))
 
@@ -116,7 +167,10 @@ def dashboard_view(request, slug):
 			'transactions': transactions,
 			'user': request.user,
 			'total': total,
-			'time_frame': time_frame
+			'time_frame': time_frame,
+			'json_graph_labels': json_graph_labels,
+            'json_transaction_total_list': json_transaction_total_list,
+            'json_transaction_date_list': json_transaction_date_list
 		}
 	)
 
