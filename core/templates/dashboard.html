@@ -148,11 +148,11 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				Do you really want to delete all transactions? They are going to be really sad!
+				Do you really want to delete all transactions?
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-				<a href="{% url 'core:delete_history' %}" class="btn btn-danger">When You're Evil</a>
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+				<a href="{% url 'core:delete_history' %}" class="btn btn-danger">Delete</a>
 			</div>
 		</div>
 	</div>
@@ -202,7 +202,9 @@
 			datasets: [{
 				label: 'Total',
 				data: columnTotal,
-				backgroundColor: interpolateColors("rgb(173, 204, 255)","rgb(132, 141, 155))",columnTotal.length),
+				// backgroundColor: interpolateColors("rgb(173, 204, 255)","rgb(132, 141, 155))",columnTotal.length),
+				backgroundColor: ['rgba(255, 206, 86, 0.2)',],
+				borderColor: ['rgba(255, 206, 86, 1)',],
 				borderWidth: 1
 			}]
 		},

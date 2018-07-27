@@ -51,23 +51,27 @@ def signup_view(request):
 		email = request.POST['email']
 		first_name = request.POST['firstname']
 		last_name = request.POST['lastname']
-		user = User.objects.create_user(
-			username=username,
-			password=password,
-			email=email,
-			first_name=first_name,
-			last_name=last_name
-		)
-		user.save()
-		messages.success(request, 'You have been created a new account successfully!')
-		return HttpResponseRedirect(reverse('core:login_view'))
+		if User.objects.filter(username=username).exists():
+			messages.error(request, 'Username is taken. Please try something else!')
+		elif User.objects.filter(email=email).exists():
+			messages.error(request, 'Email is taken. Please try something else!')
+		else:
+			user = User.objects.create_user(
+				username=username,
+				password=password,
+				email=email,
+				first_name=first_name,
+				last_name=last_name
+			)
+			user.save()
+			messages.success(request, 'You have been created a new account successfully!')
+			return HttpResponseRedirect(reverse('core:login_view'))
 	return render(request, 'signup.html')
 
 
 @login_required(login_url='/')
 def dashboard_view(request, slug):
 	user_id = request.user.id
-	# time_frame = 'last-week'
 	time_frame = slug
 	# Set the time frames
 	if time_frame == 'last-month':

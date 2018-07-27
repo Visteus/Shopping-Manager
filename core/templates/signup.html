@@ -29,6 +29,11 @@
 		<label for="inputLastName" class="sr-only">Lastname</label>
 		<input type="text" id="inputLastName" name="lastname" class="form-control" placeholder="Lastname" required>
 	</div>
+	{% if messages %} 
+		{% for message in messages %}
+			<div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</div>
+		{% endfor %} 
+	{% endif %}
 	<div class="row">
 		<div class="col">
 			<button class="btn btn-lg btn-outline-primary btn-block" type="submit">Sign Up</button>
