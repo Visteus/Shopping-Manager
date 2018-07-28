@@ -9,26 +9,17 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib import messages
 from datetime import timedelta, date, datetime
 import json
+from django.contrib.admin.views.decorators import staff_member_required
 
 # REST
 from rest_framework import viewsets, authentication, permissions
-from rest_framework.generics import (
-	CreateAPIView,
-	ListAPIView,
-	UpdateAPIView,
-	RetrieveAPIView,
-	RetrieveUpdateAPIView
-)
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
-from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly
-
 # Model
 from django.contrib.auth.models import User
 from .models import Transaction
 from django.db.models import Q
-from .serializers import TransactionSerializer, UserSerializer, UserLoginSerializer
+from .serializers import TransactionSerializer, UserSerializer
 
 
 def login_view(request):
@@ -153,16 +144,20 @@ def logout_view(request):
 
 
 # RESTful API
+# @staff_member_required
 class TransactionView(viewsets.ModelViewSet):
 	permission_classes = [IsAuthenticated]
 	queryset = Transaction.objects.all()
 	serializer_class = TransactionSerializer
 
-
+# @staff_member_required
 class UserView(viewsets.ModelViewSet):
-	permission_classes = [IsAuthenticated]
+	permission_classes = [AllowAny]
 	queryset = User.objects.all()
 	serializer_class = UserSerializer
+	# def create(self, request):
+	# 	return super(UserView, self).create(request)
+		
 
 def jwt_response_payload_handler(token, user=None, request=None):
     return {
