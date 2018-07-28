@@ -6,7 +6,7 @@ from django.db.models import Q
 class UserSerializer(ModelSerializer):
 	class Meta:
 		model = User
-		fields = ('id', 'username', 'password', 'email', 'first_name', 'last_name')
+		fields = ('id', 'username', 'password', 'email', 'first_name')
 		
 class TransactionSerializer(ModelSerializer):
 	class Meta:

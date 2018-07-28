@@ -155,8 +155,14 @@ class UserView(viewsets.ModelViewSet):
 	permission_classes = [AllowAny]
 	queryset = User.objects.all()
 	serializer_class = UserSerializer
-	# def create(self, request):
-	# 	return super(UserView, self).create(request)
+	def create(self, validated_data):
+		user = User(
+			username=validated_data['username'],
+			email=validated_data['email']
+		)
+		user.set_password(validated_data['password'])
+		user.save()
+		return user
 		
 
 def jwt_response_payload_handler(token, user=None, request=None):
