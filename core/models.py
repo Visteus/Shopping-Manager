@@ -11,3 +11,5 @@ class Transaction(models.Model):
 	
 	def __str__(self):
 		return self.title
+
+User._meta.get_field('email')._unique = True
