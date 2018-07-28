@@ -155,7 +155,7 @@ class UserView(viewsets.ModelViewSet):
 	permission_classes = [AllowAny]
 	queryset = User.objects.all()
 	serializer_class = UserSerializer
-	def create(request,self, validated_data):
+	def create(self, request, validated_data):
 		user = User(
 			username=validated_data['username'],
 			email=validated_data['email']
