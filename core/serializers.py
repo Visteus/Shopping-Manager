@@ -7,6 +7,15 @@ class UserSerializer(ModelSerializer):
 	class Meta:
 		model = User
 		fields = ('id', 'username', 'password', 'email', 'first_name')
+
+	def create(self, validated_data):
+		user = User(
+			username=validated_data['username'],
+			email=validated_data['email']
+		)
+		user.set_password(validated_data['password'])
+		user.save()
+		return user
 		
 class TransactionSerializer(ModelSerializer):
 	class Meta:
