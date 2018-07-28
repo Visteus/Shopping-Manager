@@ -20,6 +20,5 @@ urlpatterns = [
 	
 	# Restful API
 	path('api/', include(router.urls)),
-	url(r'^api-login/$', views.UserLoginAPIView.as_view(), name='login'),
 	url(r'^api-token-auth/', obtain_jwt_token),
 ]
