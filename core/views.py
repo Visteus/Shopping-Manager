@@ -99,11 +99,10 @@ def dashboard_view(request, slug):
 	json_graph_xAxis = json.dumps(graph_xAxis)
 	json_graph_column_total = json.dumps(['{:.2f}'.format(x) for x in graph_column_total])
 
-	# transaction_list = list(reversed(transaction_list))
-
 	# Pagination
+	reversed_transaction_list = list(reversed(transaction_list))
 	page = request.GET.get('page', 1)
-	paginator = Paginator(transaction_list, 10)
+	paginator = Paginator(reversed_transaction_list, 10)
 	try:
 		transactions = paginator.page(page)
 	except PageNotAnInteger:
