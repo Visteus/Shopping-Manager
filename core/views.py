@@ -154,6 +154,7 @@ class UserView(viewsets.ModelViewSet):
 	permission_classes = [AllowAny]
 	queryset = User.objects.all()
 	serializer_class = UserSerializer
+	http_method_names = ['post', 'head', 'options']
 
 def jwt_response_payload_handler(token, user=None, request=None):
     return {
