@@ -88,9 +88,10 @@ def dashboard_view(request, slug):
 	)
 
 	# Graph
+	reversed_transaction_list = list(reversed(transaction_list))
 	graph_xAxis = []
 	graph_column_total = []
-	for transaction in transaction_list:
+	for transaction in reversed_transaction_list:
 		if transaction.created_at.date().strftime('%b %d') not in graph_xAxis:
 			graph_xAxis.append(transaction.created_at.date().strftime('%b %d'))
 			graph_column_total.append(transaction.total)
@@ -100,9 +101,8 @@ def dashboard_view(request, slug):
 	json_graph_column_total = json.dumps(['{:.2f}'.format(x) for x in graph_column_total])
 
 	# Pagination
-	reversed_transaction_list = list(reversed(transaction_list))
 	page = request.GET.get('page', 1)
-	paginator = Paginator(reversed_transaction_list, 10)
+	paginator = Paginator(transaction_list, 10)
 	try:
 		transactions = paginator.page(page)
 	except PageNotAnInteger:
