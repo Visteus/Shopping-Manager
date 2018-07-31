@@ -102,12 +102,22 @@ def dashboard_view(request, slug):
 	graph_xAxis = []
 	# Graph dataset
 	graph_column_total = []
-	for transaction in reversed_transaction_list:
-		if transaction.created_at.date().strftime('%b %d') not in graph_xAxis:
-			graph_xAxis.append(transaction.created_at.date().strftime('%b %d'))
-			graph_column_total.append(transaction.total)
-		else:
-			graph_column_total[graph_xAxis.index(transaction.created_at.date().strftime('%b %d'))] += transaction.total
+	if time_frame == 'Last Year':
+		for transaction in reversed_transaction_list:
+			if transaction.created_at.date().strftime('%b %Y') not in graph_xAxis:
+				graph_xAxis.append(transaction.created_at.date().strftime('%b %Y'))
+				graph_column_total.append(transaction.total)
+			else:
+				graph_column_total[graph_xAxis.index(
+					transaction.created_at.date().strftime('%b %Y'))] += transaction.total
+	else:
+		for transaction in reversed_transaction_list:
+			if transaction.created_at.date().strftime('%b %d') not in graph_xAxis:
+				graph_xAxis.append(transaction.created_at.date().strftime('%b %d'))
+				graph_column_total.append(transaction.total)
+			else:
+				graph_column_total[graph_xAxis.index(
+					transaction.created_at.date().strftime('%b %d'))] += transaction.total
 
 	# Convert python list to JSON that Javascript can read from templates
 	json_graph_xAxis = json.dumps(graph_xAxis)
