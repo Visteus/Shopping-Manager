@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:inputType="textNoSuggestions"
+    android:background="@drawable/signupbakgrd">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.041"
+        app:srcCompat="@drawable/app_title" />
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="362dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true">
+
+        <TextView
+            android:id="@+id/returntxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="19dp"
+            android:clickable="true"
+            android:onClick="onsigninclick"
+            android:text="Already registered? Login"
+            android:textColor="@color/colorwhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/registerbtn"
+            android:layout_width="452dp"
+            android:layout_height="50dp"
+            android:onClick="onRegistrationClick"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/buttonclickableregister"
+            android:backgroundTintMode="add"
+            android:text="@string/register"
+            android:textColor="@color/colorwhite"
+            android:textSize="20sp"
+
+            app:layout_constraintBottom_toTopOf="@+id/returntxt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/userid"
+            android:layout_width="335dp"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="20sp"
+            android:ems="10"
+            android:backgroundTint="@color/colorveryopaquewhite"
+            android:textCursorDrawable="@color/colorwhite"
+            android:maxLength="30"
+            android:hint="@string/username"
+            android:textColor="@color/colorwhite"
+            android:inputType="none|textPersonName" />
+
+        <EditText
+            android:id="@+id/pswid"
+            android:layout_width="335dp"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:ems="10"
+            android:backgroundTint="@color/colorveryopaquewhite"
+            android:textCursorDrawable="@color/colorwhite"
+            android:textSize="20sp"
+            android:textColor="@color/colorwhite"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="335dp"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="120dp"
+            android:ems="10"
+            android:backgroundTint="@color/colorveryopaquewhite"
+            android:textCursorDrawable="@color/colorwhite"
+            android:maxLength="60"
+            android:textSize="20sp"
+            android:textColor="@color/colorwhite"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/firstName"
+            android:layout_width="335dp"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="130dp"
+            android:ems="10"
+            android:backgroundTint="@color/colorveryopaquewhite"
+            android:textCursorDrawable="@color/colorwhite"
+            android:maxLength="30"
+            android:textSize="20sp"
+            android:textColor="@color/colorwhite"
+            android:hint="@string/firstName"
+            android:inputType="textPostalAddress" />
+    </RelativeLayout>
+
+</RelativeLayout>

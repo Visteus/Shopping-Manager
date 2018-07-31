@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Budget\nBuddy</string>
+    <string name="app_title">BUDGET BUDDY</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="guest">GUEST</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="offline">OFFLINE</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="firstName">First Name</string>
+    <string name="aboutpage">About the App</string>
+    <string name="back">Go Back</string>
+    <string name="register">Register</string>
+    <string name="title_activity_guest">Guest</string>
+    <string name="about_desc">About Page Harrison Tuan Jacob Tom Terrell Jesus Sixiong</string>
+    <string name="guest_desc">Welcome Guest! jasdkljaolirehweqou rnenerkjubouehruioewh8r h2394u2hfjkwe8 32i 32hj2132423v 432</string>
+</resources>

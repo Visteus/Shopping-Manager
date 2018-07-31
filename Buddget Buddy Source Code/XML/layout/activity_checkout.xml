@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradientbackgroundblue"
+    tools:context=".Checkout">
+
+    <Button
+        android:id="@+id/buttonBack"
+        android:onClick="onBackClick"
+        android:text="Back"
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/buttonCheckout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="onCheckoutClick"
+        android:text="    Checkout    " />
+
+    <TextView
+        android:id="@+id/tvTransactionName"
+        android:textColor="@color/colorwhite"
+        android:textSize="24sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonBack"
+        android:layout_centerHorizontal="true"
+        android:text="Transaction Name" />
+
+    <TextView
+        android:id="@+id/tvTotal"
+        android:textSize="24sp"
+        android:textColor="@color/colorwhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="116dp"
+        android:text="Total" />
+
+    <TextView
+        android:id="@+id/tvAfterTax"
+        android:maxLines="1"
+        android:textSize="24sp"
+        android:textColor="@color/colorwhite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="175dp"
+        android:text="After Tax:" />
+
+    <EditText
+        android:id="@+id/etAfterTax"
+        android:textSize="20sp"
+        android:maxLength="14"
+        android:inputType="numberDecimal"
+        android:hint="Total After Tax (Optional)"
+        android:backgroundTint="@color/colorwhite"
+        android:textColorHint="@color/coloropaquewhite"
+        android:textColor="@color/colorwhite"
+        android:imeOptions="actionDone"
+        android:textAlignment="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="238dp" />
+
+    <EditText
+        android:id="@+id/etTransactionName"
+        android:textSize="20sp"
+        android:maxLength="30"
+        android:hint="Transaction Name (Optional)"
+        android:textColorHint="@color/coloropaquewhite"
+        android:textColor="@color/colorwhite"
+        android:backgroundTint="@color/colorwhite"
+        android:inputType="textCapSentences"
+        android:imeOptions="actionDone"
+        android:textAlignment="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etAfterTax"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
